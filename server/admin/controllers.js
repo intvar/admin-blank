@@ -7,7 +7,7 @@ const {
   createErrorFromValidate,
 } = require('../lib/util');
 const FV = require('../lib/FieldValidation');
-const isValidBody = require('./validate');
+const { createValidate, updateValidate } = require('./validate');
 
 const getAdminById = async (adminId) => {
   FV('admin_id', adminId).isNumeric();
@@ -18,20 +18,19 @@ const getAdminById = async (adminId) => {
   return admin;
 };
 
-const validBody = (req) => {
-  const adminData = pick(req.body, ['status', 'first_name', 'last_name', 'email']);
-  if (!isValidBody(adminData)) {
-    throw createErrorFromValidate(adminData);
+const validateBody = (bodyData, validateStrategy) => {
+  if (!validateStrategy(bodyData)) {
+    throw createErrorFromValidate(validateStrategy);
   }
-  return adminData;
+  return bodyData;
 };
 
 exports.create = async (req, res) => {
-  const adminData = validBody(req);
-  const admin = await Admin.create(adminData);
-  res.status(200).send({
-    id: admin.id,
-  });
+  const adminData = pick(req.body, ['status', 'first_name', 'last_name', 'email']);
+  validateBody(adminData, createValidate);
+  const { id } = await Admin.create(adminData);
+  saveEventLog(req, false, 'admin created success');
+  res.status(200).send({ id });
 };
 
 exports.retrieve = async (req, res) => {
@@ -52,8 +51,9 @@ exports.retrieveById = async (req, res) => {
 };
 
 exports.update = async (req, res) => {
+  const adminData = pick(req.body, ['status', 'first_name', 'last_name']);
+  validateBody(adminData, updateValidate);
   const adminId = +req.params.id;
-  const adminData = validBody(req);
   await getAdminById(adminId);
   await Admin.update(adminData, { where: { id: adminId } });
   saveEventLog(req, false, 'admin updated success');

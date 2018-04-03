@@ -1,4 +1,9 @@
 const Ajv = require('ajv');
 const adminSchema = require('./admin.json');
 
-module.exports = (new Ajv()).compile(adminSchema);
+exports.updateValidate = (new Ajv()).compile(adminSchema);
+
+exports.createValidate = (new Ajv()).compile({
+  ...adminSchema,
+  required: ['email', 'status', 'first_name', 'last_name'],
+});

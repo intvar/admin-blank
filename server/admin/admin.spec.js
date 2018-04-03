@@ -54,8 +54,15 @@ describe('admins rests', () => {
     });
   });
   describe('update', () => {
-    it('should retirn 404 http code', async () => {
-      await request(app).put('/api/v1/admins/9999').expect(404);
+    it('should return 404 http code', async () => {
+      await request(app)
+        .put('/api/v1/admins/9999')
+        .send({
+          status: 0,
+          first_name: 'test_first_name',
+          last_name: 'test_last_name',
+        })
+        .expect(404);
     });
     it('should update admin', async () => {
       const adminId = admins[0].id;
