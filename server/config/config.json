@@ -1,0 +1,39 @@
+{
+  "port":3000,
+  "dbParams":{
+    "user": "admin",
+    "password": null,
+    "database": "admin_blank_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "port": 3306
+  },
+  "sessionOptions" : {
+    "secret": "somesecretkeythatweshouldgenerateandstoresomewhere",
+    "saveUninitialized": true,
+    "resave": false,
+    "cookie" : {
+      "httpOnly": true,
+      "maxAge": 2419200000
+    }
+  },
+  "redisOptions": {
+    "host": "localhost",
+    "port": 6379
+  },
+  "recoveryPassLinks": {
+    "linkOperator":"http://localhost:8080/link_operator/{{verify_pass_code}}"
+  },
+  "mailjet": {
+    "publicKey":"public_key_test",
+    "secretKey":"secret_key_test",
+    "from": {
+      "Email": "intvar@yandex.ru",
+      "Name": "Tokeny"
+    },
+    "templates": {
+      "newOperator":257933,
+      "forgotPasswordOperator":259147
+    }
+  }
+}

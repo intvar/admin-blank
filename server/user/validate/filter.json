@@ -1,0 +1,22 @@
+{
+  "properties": {
+    "user_id": {
+      "type":"number",
+      "minimum": 1
+    },
+    "status": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 2
+    },
+    "page": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "limit": {
+      "type":"integer",
+      "minimum": 1
+    }
+  },
+  "additionalProperties": false
+}

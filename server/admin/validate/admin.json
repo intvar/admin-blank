@@ -1,0 +1,23 @@
+{
+  "properties": {
+    "email": {
+      "type": "string",
+      "foramt": "email",
+      "maxLength": 50
+    },
+    "status": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 2
+    },
+    "first_name": {
+      "type": "string",
+      "maxLength": 50
+    },
+    "last_name": {
+      "type": "string",
+      "maxLength": 50
+    }
+  },
+  "additionalProperties": false
+}

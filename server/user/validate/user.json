@@ -1,0 +1,27 @@
+{
+  "properties": {
+    "status": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 2
+    },
+    "gender": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "first_name": {
+      "type": "string",
+      "maxLength": 50
+    },
+    "last_name": {
+      "type": "string",
+      "maxLength": 50
+    },
+    "birthday": {
+      "type": "string",
+      "format": "date"
+    }
+  },
+  "additionalProperties": false
+}
