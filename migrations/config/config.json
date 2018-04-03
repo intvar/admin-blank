@@ -1,0 +1,16 @@
+{
+  "development": {
+    "username": "admin",
+    "password": null,
+    "database": "admin_blank",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "admin",
+    "password": null,
+    "database": "admin_blank_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}

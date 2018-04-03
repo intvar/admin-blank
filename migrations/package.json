@@ -1,0 +1,28 @@
+{
+  "name": "migrations",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start-dev": "node_modules/.bin/sequelize db:migrate --env development",
+    "start-test": "node_modules/.bin/sequelize db:migrate --env test",
+    "create": "node_modules/.bin/sequelize migration:generate --name $DESCRIPTION",
+    "create-seed": "node_modules/.bin/sequelize seed:generate --name $DESCRIPTION",
+    "undo-test": "node_modules/.bin/sequelize db:migrate:undo --env test",
+    "undo-all-test": "node_modules/.bin/sequelize db:migrate:undo:all --env test",
+    "undo-dev": "node_modules/.bin/sequelize db:migrate:undo --env development",
+    "undo-all-dev": "node_modules/.bin/sequelize db:migrate:undo:all --env development"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mysql2": "^1.5.3",
+    "sequelize": "^4.37.4",
+    "sequelize-cli": "^4.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.9.0"
+  }
+}
