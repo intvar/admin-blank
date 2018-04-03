@@ -4,15 +4,14 @@ const {
   saveEventLog,
   createError,
   createErrorFromValidate,
+  getSelectionParameters,
 } = require('../lib/util');
 const { pick, isEmpty } = require('lodash');
-const { filterValidate, userValidate } = require('./validate');
+const { userValidate } = require('./validate');
+const FV = require('../lib/FieldValidation');
 
 exports.retrieve = async (req, res) => {
-  const filters = {
-    page: +req.query.page || 1,
-    limit: +req.query.limit || 20,
-  };
+  const { limit, offset } = getSelectionParameters(req);
   const { search_criterion } = req.query;
   const where = {};
   const attributes = {
@@ -20,12 +19,7 @@ exports.retrieve = async (req, res) => {
   };
 
   if (req.query.status !== undefined) {
-    filters.status = +req.query.status;
     where.status = +req.query.status;
-  }
-
-  if (!filterValidate(filters)) {
-    throw createErrorFromValidate(filterValidate);
   }
 
   if (search_criterion) {
@@ -47,8 +41,6 @@ exports.retrieve = async (req, res) => {
       },
     ];
   }
-  const { page, limit } = filters;
-  const offset = (page - 1) * limit;
 
   const users = await User.findAll({
     offset,
@@ -65,9 +57,7 @@ exports.retrieveById = async (req, res) => {
   const attributes = {
     exclude: ['password'],
   };
-  if (!filterValidate({ user_id })) {
-    throw createErrorFromValidate(filterValidate);
-  }
+  FV('user_id', user_id).isInteger({ min: 1 });
 
   const user = await User.findById(user_id, { attributes });
   if (!user) {
@@ -79,9 +69,7 @@ exports.retrieveById = async (req, res) => {
 
 exports.update = async (req, res) => {
   const user_id = +req.params.user_id;
-  if (!filterValidate({ user_id })) {
-    throw createErrorFromValidate(filterValidate);
-  }
+  FV('user_id', user_id).isInteger({ min: 1 });
 
   const userData = pick(req.body, ['first_name', 'last_name', 'gender', 'birthday', 'status']);
 

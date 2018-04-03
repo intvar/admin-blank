@@ -32,7 +32,7 @@ describe('users rests', () => {
         .get('/api/v1/users/badId')
         .expect(400)
         .then((res) => {
-          expect(res.body.code).toBe('err_user_id');
+          expect(res.body.code).toBe('err_user_id_not_integer');
         }));
 
     it('should return user with http status 200', () => {
@@ -108,7 +108,7 @@ describe('users rests', () => {
         })
         .expect(400)
         .then((res) => {
-          expect(res.body.code).toBe('err_user_id');
+          expect(res.body.code).toBe('err_user_id_not_integer');
         }));
 
     it('should return http status 400 with error err_status', () => {
