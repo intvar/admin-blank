@@ -10,6 +10,18 @@ const { pick, isEmpty } = require('lodash');
 const { userValidate } = require('./validate');
 const FV = require('../lib/FieldValidation');
 
+const getUserById = async (userId) => {
+  const attributes = {
+    exclude: ['password'],
+  };
+  FV('user_id', userId).isInteger({ min: 1 });
+  const user = await User.findById(userId, { attributes });
+  if (!user) {
+    throw createError(`user with id = ${userId} not found`, 404, 'err_user_not_found');
+  }
+  return user;
+};
+
 exports.retrieve = async (req, res) => {
   const { limit, offset } = getSelectionParameters(req);
   const { search_criterion } = req.query;
@@ -54,23 +66,13 @@ exports.retrieve = async (req, res) => {
 
 exports.retrieveById = async (req, res) => {
   const user_id = +req.params.user_id;
-  const attributes = {
-    exclude: ['password'],
-  };
-  FV('user_id', user_id).isInteger({ min: 1 });
-
-  const user = await User.findById(user_id, { attributes });
-  if (!user) {
-    throw createError(`user with id = ${user_id} not found`, 404, 'err_user_not_found');
-  }
+  const user = await getUserById(user_id);
   saveEventLog(req, false, 'user received successfully');
   res.status(200).send(user);
 };
 
 exports.update = async (req, res) => {
   const user_id = +req.params.user_id;
-  FV('user_id', user_id).isInteger({ min: 1 });
-
   const userData = pick(req.body, ['first_name', 'last_name', 'gender', 'birthday', 'status']);
 
   if (isEmpty(userData)) {
@@ -81,11 +83,7 @@ exports.update = async (req, res) => {
     throw createErrorFromValidate(userValidate);
   }
 
-  const isUserExist = !!(await User.findById(user_id));
-  if (!isUserExist) {
-    throw createError(`user with id = ${user_id} not found`, 404, 'err_user_not_found');
-  }
-
+  await getUserById(user_id);
   await User.update(userData, { where: { id: user_id } });
   saveEventLog(req, false, 'user update successfully');
   res.status(204).send();
