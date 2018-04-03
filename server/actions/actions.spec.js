@@ -5,10 +5,9 @@ const Admin = require('../admin/model');
 const bcrypt = require('bcryptjs');
 const { createFromArray, destroyAll } = require('../lib/util');
 const { send } = require('../lib/mailjet');
-const templateIdForgotPassword = require('../config').get('mailjet:templates:forgotPasswordOperator');
 
 jest.mock('../lib/mailjet');
-send.mockImplementation(() => Promise.resolve());
+send.mockReturnValue(Promise.resolve());
 
 describe('actions rests', () => {
   beforeEach(async () => {
@@ -111,6 +110,7 @@ describe('actions rests', () => {
         }));
 
     it('should return code 200 and send email', () => {
+      const templateIdForgotPassword = require('../config').get('mailjet:templates:forgotPasswordAdmin');
       const { email } = admins[0];
       return request(app)
         .put('/api/v1/actions/forgot_password')

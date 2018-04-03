@@ -21,9 +21,7 @@
     "host": "localhost",
     "port": 6379
   },
-  "recoveryPassLinks": {
-    "linkOperator":"http://localhost:8080/link_operator/{{verify_pass_code}}"
-  },
+
   "mailjet": {
     "publicKey":"public_key_test",
     "secretKey":"secret_key_test",
@@ -32,8 +30,11 @@
       "Name": "Tokeny"
     },
     "templates": {
-      "newOperator":257933,
-      "forgotPasswordOperator":259147
+      "newAdmin":257933,
+      "forgotPasswordAdmin":259147
+    },
+    "links": {
+      "adminAuth":"http://localhost:8080/link_admin/{{verify_pass_code}}"
     }
   }
 }

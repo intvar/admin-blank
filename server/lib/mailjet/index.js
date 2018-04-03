@@ -42,5 +42,4 @@ exports.send = ({
 
 
 exports.saveLogForgotPasswordEmail = require('./saveEventLogEmail').saveLogForgotPasswordEmail;
-exports.saveLogNewUserEmail = require('./saveEventLogEmail').saveLogNewUserEmail;
-exports.saveLogKycCheckSuccessfully = require('./saveEventLogEmail').saveLogKycCheckSuccessfully;
+exports.saveLogNewAdminEmail = require('./saveEventLogEmail').saveLogNewAdminEmail;

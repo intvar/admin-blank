@@ -4,9 +4,14 @@ const Admin = require('./model');
 const { admins } = require('../test/dataForTests');
 const { createFromArray, destroyAll } = require('../lib/util');
 const { pick } = require('lodash');
+const { send } = require('../lib/mailjet');
+
+jest.mock('../lib/mailjet');
+send.mockReturnValue(Promise.resolve());
 
 describe('admins rests', () => {
   beforeEach(async () => {
+    send.mockClear();
     await createFromArray(Admin, admins);
   });
   afterEach(async () => {
@@ -14,6 +19,7 @@ describe('admins rests', () => {
   });
   describe('create', () => {
     it('should create admin', async () => {
+      const templateId = require('../config').get('mailjet:templates:newAdmin');
       const adminData = {
         first_name: 'Josephine',
         last_name: 'Moreno',
@@ -28,6 +34,13 @@ describe('admins rests', () => {
       expect(adminId).toBeNumber();
       const admin = pick(await Admin.findById(adminId), ['first_name', 'last_name', 'email', 'status']);
       expect(admin).toEqual(adminData);
+      expect(send).toBeCalled();
+      const sendParams = send.mock.calls[0][0];
+      expect(sendParams.email).toBe(adminData.email);
+      expect(sendParams.name).toBe('Josephine Moreno');
+      expect(sendParams.templateId).toBe(templateId);
+      expect(sendParams.variables.name).toBe('Josephine Moreno');
+      expect(sendParams.variables.link).toBeDefined();
     });
   });
   describe('retrieve', () => {

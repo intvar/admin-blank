@@ -1,6 +1,6 @@
-const { send, saveLogNewUserEmail } = require('../lib/mailjet');
-const { templates } = require('../config').get('mailjet');
-const recoveryPassLinks = require('../config').get('recoveryPassLinks');
+const { send, saveLogForgotPasswordEmail } = require('../lib/mailjet');
+const templateId = require('../config').get('mailjet:templates:forgotPasswordAdmin');
+const linkTemplate = require('../config').get('mailjet:links:adminAuth');
 const { getUserName } = require('../lib/util');
 
 module.exports = ({
@@ -10,8 +10,7 @@ module.exports = ({
   verify_pass_code,
   id,
 }) => {
-  const link = recoveryPassLinks.linkOperator.replace('{{verify_pass_code}}', verify_pass_code);
-  const templateId = templates.forgotPasswordOperator;
+  const link = linkTemplate.replace('{{verify_pass_code}}', verify_pass_code);
   const name = getUserName(first_name, last_name);
   return send({
     email,
@@ -22,6 +21,6 @@ module.exports = ({
       name,
     },
   })
-    .then(() => saveLogNewUserEmail(id, email))
-    .catch(err => saveLogNewUserEmail(id, email, err));
+    .then(() => saveLogForgotPasswordEmail(id, email))
+    .catch(err => saveLogForgotPasswordEmail(id, email, err));
 };

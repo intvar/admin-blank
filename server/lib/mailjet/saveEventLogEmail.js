@@ -27,9 +27,6 @@ const saveLog = (user_id, description, event_id, err) => {
 exports.saveLogForgotPasswordEmail = (user_id, email, err) =>
   saveLog(user_id, `Send email forgot password ${email}`, 'send_email_forgot_password', err);
 
-exports.saveLogNewUserEmail = (user_id, email, err) =>
-  saveLog(user_id, `Send email new user ${email}`, 'send_email_new_user', err);
-
-exports.saveLogKycCheckSuccessfully = (user_id, email, err) =>
-  saveLog(user_id, `Send email kyc check successfully ${email}`, 'send_email_kyc_check_successfully', err);
+exports.saveLogNewAdminEmail = (user_id, email, err) =>
+  saveLog(user_id, `Send email new admin ${email}`, 'send_email_new_admin', err);
 
