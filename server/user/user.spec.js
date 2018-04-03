@@ -3,6 +3,7 @@ const request = require('supertest');
 const { users } = require('../test/dataForTests');
 const User = require('./model');
 const { createFromArray, destroyAll } = require('../lib/util');
+const sequelize = require('../lib/sequelize');
 
 const {
   USER_STATUS_WAITING_VERIFYING,
@@ -15,6 +16,7 @@ describe('users rests', () => {
   afterEach(async () => {
     destroyAll(User);
   });
+  afterAll(() => sequelize.close());
 
   describe('get user by id with code err_user_not_found', () => {
     it('should return http status 404', () =>

@@ -5,6 +5,8 @@ const { admins } = require('../test/dataForTests');
 const { createFromArray, destroyAll } = require('../lib/util');
 const { pick } = require('lodash');
 const { send } = require('../lib/mailjet');
+const sequelize = require('../lib/sequelize');
+
 
 jest.mock('../lib/mailjet');
 send.mockReturnValue(Promise.resolve());
@@ -17,6 +19,7 @@ describe('admins rests', () => {
   afterEach(async () => {
     await destroyAll(Admin);
   });
+  afterAll(() => sequelize.close());
   describe('create', () => {
     it('should create admin', async () => {
       const templateId = require('../config').get('mailjet:templates:newAdmin');

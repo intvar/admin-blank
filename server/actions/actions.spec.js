@@ -5,6 +5,7 @@ const Admin = require('../admin/model');
 const bcrypt = require('bcryptjs');
 const { createFromArray, destroyAll } = require('../lib/util');
 const { send } = require('../lib/mailjet');
+const sequelize = require('../lib/sequelize');
 
 jest.mock('../lib/mailjet');
 send.mockReturnValue(Promise.resolve());
@@ -17,6 +18,7 @@ describe('actions rests', () => {
   afterEach(async () => {
     await destroyAll(Admin);
   });
+  afterAll(() => sequelize.close());
 
   describe('login', () => {
     it('should return 400 status with code incorrect_password', () =>

@@ -3,6 +3,8 @@ const request = require('supertest');
 const { event_codes } = require('../test/dataForTests');
 const EventCode = require('./model');
 const { destroyAll, createFromArray } = require('../lib/util');
+const sequelize = require('../lib/sequelize');
+
 
 describe('event code rests', () => {
   beforeEach(async () => {
@@ -10,7 +12,7 @@ describe('event code rests', () => {
     await createFromArray(EventCode, event_codes);
   });
   afterEach(() => destroyAll(EventCode));
-
+  afterAll(() => sequelize.close());
   describe('get list of event codes', () => {
     it('should return all events with http code 200', () =>
       request(app)

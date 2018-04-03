@@ -4,6 +4,7 @@ const { event_logs } = require('../test/dataForTests');
 const EventLog = require('./model');
 const moment = require('moment');
 const { createFromArray, destroyAll } = require('../lib/util');
+const sequelize = require('../lib/sequelize');
 
 describe('event log rests', () => {
   beforeEach(async () => {
@@ -13,6 +14,7 @@ describe('event log rests', () => {
   afterEach(async () => {
     await destroyAll(EventLog);
   });
+  afterAll(() => sequelize.close());
 
   describe('get list of events', () => {
     it('should return all events with http code 200', () =>
