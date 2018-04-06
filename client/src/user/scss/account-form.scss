@@ -1,0 +1,34 @@
+.account-page {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.account-form {
+  padding: 20px;
+  max-width: 400px;
+}
+.account-form__header {
+  font-size: 22px;
+  margin-bottom: 27px;
+}
+.account-form__field {
+  margin-bottom: 20px;
+}
+.account-form__field--space-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.account-form__loader {
+  display: block !important;
+  margin: 0 auto;
+}
+.account-form__error {
+  margin: 20px 0;
+  font-size: 20px;
+  color: red;
+}

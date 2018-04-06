@@ -1,0 +1,50 @@
+@import '../../scss/constants.scss';
+
+.header {
+  height: 70px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 $desktop-content-padding;
+  font-family: Roboto, sans-serif;
+  box-shadow: 0, 0, 0, 0.7;
+}
+
+.header__logo {
+  width: 150px; 
+}
+
+.header__nav {
+  display: block;
+  height: 100%;
+  display: flex;
+  margin: 0 25px;
+  align-items: center;
+}
+
+.header__nav-item {
+  padding: 0 15px;
+  min-width: 50px;
+  text-transform: uppercase;
+  color: $primary-color;
+  height: 100%;
+  transition: background-color .3s ease;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10px;
+  border-top: 2px solid transparent;
+  border-bottom: 2px solid transparent;
+}
+
+.header__nav-item:hover {
+  color: $secondary-color;
+  background-color: $primary-color;
+  border-bottom: 2px solid $secondary-color;
+}
+
+.header__nav-item--selected {
+  border-bottom: 2px solid $secondary-color;
+}

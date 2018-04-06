@@ -1,0 +1,18 @@
+@import 'reset';
+@import './constants.scss';
+
+html, body {
+  background: #e7f0f5;
+  margin: 0;
+  height: 100%;
+  font-family: Roboto, sans-serif;
+}
+
+.content__wrapper {
+  display: flex;
+}
+
+.content__content-wrap {
+  width: 100%;
+  margin: 20px;
+}

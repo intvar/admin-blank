@@ -1,0 +1,32 @@
+$indent: 20px;
+
+.users-filter {
+  padding: $indent;
+  margin-bottom: $indent;
+}
+
+.users-filter__actions {
+  margin-top: $indent;
+}
+
+.users-filter__status {
+  margin-left:$indent;
+}
+
+.users-filter__search_criterion {
+  display:block !important;
+  width: 532px !important;
+}
+
+.users-filter__actions-reset {
+  margin-left:$indent;
+}
+
+@media screen and (max-width: 850px) {
+  .users-filter__status {
+    margin-left:0;
+  }
+  .users-filter__search_criterion {
+    width: auto;
+  }
+};

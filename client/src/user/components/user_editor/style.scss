@@ -1,0 +1,26 @@
+@import '../../../core/scss/constants';
+
+.profile__settings-form {
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+.profile__settings-form-field {
+  display: flex;
+  align-items: center;
+}
+.profile__settings-form-field > :last-child {
+  margin-right: 0;
+}
+.profile__settings-form-input {
+  margin-right: 20px;
+  flex-shrink: 1;
+}
+.profile__setings-form-tooltip {
+  font-size: 12px;
+  color: $gray-color;
+  margin-top: 30px;
+}
+.profile__settings-form-actions {
+  margin-top: 30px;
+}

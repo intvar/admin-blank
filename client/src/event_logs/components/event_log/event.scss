@@ -1,0 +1,27 @@
+@import '../../../core/scss/constants.scss';
+
+.event-log {
+  width: 100%;
+}
+
+.event-log__header {
+   color: #5b0cf4;
+}
+
+.event-log__column-is-err {
+  width:10px;
+}
+
+.event-log__column-date {
+  width:130px;
+}
+
+.event-log__column-event {
+  width:150px;
+}
+
+.event-log__column-user {
+  width:10px;
+}
+
+.event-log__table-wrap {}

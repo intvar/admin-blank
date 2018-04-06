@@ -1,0 +1,10 @@
+@import '../../scss/constants.scss';
+
+.menu {
+  margin-top: $paper-margin;
+  min-height: 100vh;
+}
+
+.menu__self {
+  width: 150px;
+}

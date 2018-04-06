@@ -1,0 +1,17 @@
+@import '../../scss/constants.scss';
+
+.search-not-found {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.search-not-found__text {
+  font-size: 18px;
+}
+
+.search-not-found__icon {
+  margin-left: 10px;
+}
