@@ -15,10 +15,13 @@ import EventLogItem from '../event_log_item';
 import shapeEvent from '../shapeEvent';
 import EventLogFilters from '../filters';
 
+/**
+ * @todo Fix problem with twice call loadmore in infinite scroll
+ * https://github.com/CassetteRocks/react-infinite-scroller/issues/143
+ * @todo Fix problem with time in date filters
+ */
+
 class EventLog extends Component {
-  componentDidMount() {
-    // this.props.load();
-  }
   renderTables() {
     return (
       <Paper className="event-log__table-wrap">
@@ -42,11 +45,9 @@ class EventLog extends Component {
     return (
       <div className="event-log">
         <EventLogFilters />
-        {/* {this.props.list.length ? this.renderTables() : <SearchNotFound />} */}
         <InfiniteScroll
-          pageStart={0}
-          loadMore={this.props.loadMore}
-          initialLoad={false}
+          loadMore={this.props.loadEventLog}
+          threshold={1000}
           hasMore={this.props.hasMore}
           loader={<ContentSpinner key={0} />}
         >
@@ -58,8 +59,7 @@ class EventLog extends Component {
 }
 
 EventLog.propTypes = {
-  load: PropTypes.func.isRequired,
-  loadMore: PropTypes.func.isRequired,
+  loadEventLog: PropTypes.func.isRequired,
   list: PropTypes.arrayOf(PropTypes.shape(shapeEvent)).isRequired,
   hasMore: PropTypes.bool.isRequired,
 };

@@ -9,7 +9,7 @@ const isErrorFilter = () => {
   const IS_ERROR = 1;
 
   return (
-    <Field name="is_error" component={SelectField}>
+    <Field name="is_error" component={SelectField} floatingLabelText="Select an error status">
       <MenuItem value={ALL} primaryText="" />
       <MenuItem value={IS_ERROR} primaryText="Error" />
       <MenuItem value={OK} primaryText="Ok" />

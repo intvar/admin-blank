@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import { isEmail } from 'validator';
 import SignInForm from './signInForm';
-import { signIn } from '../../../store/ducks/data/user';
+import { signIn } from '../../../store/ducks/ui/user';
 import userSelector from '../../../store/selectors/userSelector';
 
 const validate = ({ email, password }) => {

@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router';
 import { connect } from 'react-redux';
+import userSelector from '../../../store/selectors/userSelector';
 
 const PrivateRoute = ({ component: Component, isAuthenticated, ...rest }) => (
   <Route
@@ -27,9 +28,12 @@ PrivateRoute.propTypes = {
   location: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
-  isAuthenticated: state.data.user.get('isAuthorized'),
-});
+const mapStateToProps = (state) => {
+  const user = userSelector(state);
+  return {
+    isAuthenticated: user.isAuthorized,
+  };
+};
 
 export default connect(mapStateToProps)(PrivateRoute);
 

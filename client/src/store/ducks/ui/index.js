@@ -6,6 +6,7 @@ import event_log from './event_log';
 import dialog from './dialog';
 import users_filters from './usersFilters';
 import eventLogDebugInfo from './event_log_debug_info';
+import user from './user';
 
 const ui = combineReducers({
   navigation,
@@ -15,6 +16,7 @@ const ui = combineReducers({
   dialog,
   users_filters,
   eventLogDebugInfo,
+  user,
 });
 
 export default ui;

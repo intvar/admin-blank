@@ -1,8 +1,5 @@
-import { EditorState } from 'draft-js';
 import {
   objToQSParams,
-  convertHtmlToEditorState,
-  convertEditorStateToHtml,
   beautifyNumber,
   parseQueryString,
   pick,
@@ -28,32 +25,6 @@ describe('utils', () => {
     it('should return array string', () => {
       const actualUrl = objToQSParams({ a: 'a', b: ['test', 'test1', 'test2'] });
       expect(actualUrl).toEqual('a=a&b=test,test1,test2');
-    });
-  });
-
-  describe('convertHtmlToEditorState', () => {
-    it('should return editor state for html', () => {
-      const editorState = convertHtmlToEditorState('<p>test</p>');
-      expect(editorState instanceof EditorState).toBeTruthy();
-    });
-
-    it('should return editor state for null', () => {
-      const editorState = convertHtmlToEditorState(null);
-      expect(editorState instanceof EditorState).toBeTruthy();
-    });
-
-    it('should return editor state for empty string', () => {
-      const editorState = convertHtmlToEditorState('');
-      expect(editorState instanceof EditorState).toBeTruthy();
-    });
-  });
-
-  describe('convertEditorStateToHtml', () => {
-    it('should return html from editor state', () => {
-      const html = '<p><strong>test</strong></p>';
-      const editorState = convertHtmlToEditorState(html);
-      const actualHtml = convertEditorStateToHtml(editorState);
-      expect(actualHtml).toBe(html);
     });
   });
 

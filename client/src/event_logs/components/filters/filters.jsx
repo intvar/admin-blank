@@ -8,22 +8,39 @@ import IsErrorFilter from './isErrorFilter';
 import CodesFilter from './CodesFilter';
 import './style.scss';
 
+const dateFieldFormat = (value) => {
+  if (value === '') return null;
+  return value;
+};
+
 class EventLogFilters extends Component {
   componentDidMount() {
-    this.props.loadEventCodes();
+    this.props.onLoad();
   }
   render() {
-    const { handleSubmit, eventCodes } = this.props;
+    const { handleSubmit, eventCodes, reset } = this.props;
     return (
       <Paper className="events-filters">
         <form onSubmit={handleSubmit}>
           <IsErrorFilter />
           <CodesFilter codes={eventCodes} />
           <div className="events-filters__dates">
-            <Field component={DatePicker} name="event_date_from" hintText="Date from" />
-            <Field component={DatePicker} name="event_date_ti" hintText="Date to" />
+            <Field
+              component={DatePicker}
+              name="event_date_from"
+              hintText="Date from"
+              format={dateFieldFormat}
+            />
+            <Field
+              component={DatePicker}
+              name="event_date_to"
+              hintText="Date to"
+              className="events-filters__dates-right"
+              format={dateFieldFormat}
+            />
           </div>
           <RaisedButton className="events-filters__button" label="Apply" primary type="submit" />
+          <RaisedButton className="events-filters__button-reset" label="Reset" onClick={reset} />
         </form>
       </Paper>
     );
@@ -33,7 +50,8 @@ class EventLogFilters extends Component {
 EventLogFilters.propTypes = {
   eventCodes: PropTypes.arrayOf(PropTypes.string).isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  loadEventCodes: PropTypes.func.isRequired,
+  onLoad: PropTypes.func.isRequired,
+  reset: PropTypes.func.isRequired,
 };
 
 export default EventLogFilters;

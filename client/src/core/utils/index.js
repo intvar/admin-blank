@@ -1,7 +1,4 @@
 import createHistory from 'history/createBrowserHistory';
-import htmlToDraft from 'html-to-draftjs';
-import draftToHtml from 'draftjs-to-html';
-import { EditorState, ContentState, convertToRaw } from 'draft-js';
 
 const history = createHistory();
 
@@ -83,21 +80,6 @@ export function onFormFieldChange(
 
 export default history;
 
-export const convertHtmlToEditorState = (html) => {
-  if (!html) {
-    return EditorState.createEmpty();
-  }
-  const contentBlock = htmlToDraft(html);
-  if (!contentBlock) {
-    return EditorState.createEmpty();
-  }
-  const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
-  return EditorState.createWithContent(contentState);
-};
-
-export const convertEditorStateToHtml = editorState =>
-  draftToHtml(convertToRaw(editorState.getCurrentContent())).trim();
-
 export const isValidContractAddress = address => (/^(0x)[0-9a-f]{40}$/i.test(address));
 
 /**
@@ -145,7 +127,3 @@ export function pick(props, from) {
       (acc, propName) => (Object.prototype.hasOwnProperty.call(from, propName) ?
         (acc[propName] = from[propName], acc) : acc), {});
 }
-
-export const isValidHexColor = str => /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(str);
-
-export const isValidEthereumAddress = address => (/^(0x)[0-9a-f]{40}$/i.test(address));

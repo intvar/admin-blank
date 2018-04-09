@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 const CodesFilter = ({ codes }) =>
   (
     <Field
+      name="codes"
       component={SelectField}
       floatingLabelText="Select a codes"
       multiple

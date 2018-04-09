@@ -7,7 +7,7 @@ import {
   signOutStart,
   signOutSuccess,
   signOutError,
-} from '../../ducks/data/user';
+} from '../../ducks/ui/user';
 import { signIn, signOut } from './index';
 
 describe('auth sagas', () => {

@@ -1,96 +1,43 @@
-import urlJoin from 'url-join';
-import { List } from 'immutable';
-// import { API_URL } from '../../../core/constants';
-// import { objToQSParams } from '../../../core/utils';
+import { Map } from 'immutable';
+import mapKeys from 'lodash/mapKeys';
 
-const LOAD = '/event_log/LOAD';
-const LOAD_START = '/event'
-const LOAD_MORE = '/event_log/LOAD_MORE';
-const RESET_PAGE_NUMBER = '/event_log/RESET_PAGE_NUMBER';
+const limit = 40;
+export const LOAD = '/event_log/LOAD';
+export const RELOAD = '/event_log/REALOAD';
+const LOAD_START = '/event_log/LOAD_START';
+const LOAD_SUCCESS = '/event_log/LOAD_SUCCEESS';
+const RESET = '/event_log/RESET';
 
-const initialState = {
-  list: List(),
-  page_number: 1,
+export const load = () => ({ type: LOAD });
+export const reload = () => ({ type: RELOAD });
+export const loadStart = () => ({ type: LOAD_START });
+export const loadSuccess = event_logs => ({
+  type: LOAD_SUCCESS,
+  event_logs,
+});
+export const reset = () => ({ type: RESET });
+
+export const initialState = Map({
+  list: Map(),
+  pageNumber: 1,
   hasMore: true,
-  limit: 40,
-};
+  isLoading: false,
+});
 
-export default function reducer(state = initialState, action) {
-  switch (action.type) {
-    case LOAD_MORE:
-      return {
-        ...state,
-        list: state.list.concat(action.list).groupBy(i => i.id).map(i => i.first()).toList(),
-        page_number: state.page_number + 1,
-        hasMore: action.list.length === state.limit,
-      };
-    case LOAD:
-      return {
-        ...state,
-        list: List(action.list),
-        page_number: state.page_number + 1,
-        hasMore: action.list.length === state.limit,
-      };
-    case RESET_PAGE_NUMBER:
-      return {
-        ...state,
-        page_number: 1,
-      };
+export default (state = initialState, { type, event_logs }) => {
+  switch (type) {
+    case LOAD_START:
+      return state.set('isLoading', true);
+    case LOAD_SUCCESS:
+      return state.merge({
+        isLoading: false,
+        pageNumber: state.get('pageNumber') + 1,
+        hasMore: (event_logs.length === limit),
+        list: state.get('list').merge(mapKeys(event_logs, 'id')),
+      });
+    case RESET:
+      return initialState;
     default:
       return state;
   }
-}
-
-
-function loadMoreSuccess(list) {
-  return {
-    type: LOAD_MORE,
-    list,
-  };
-}
-
-function loadSuccess(list) {
-  return {
-    type: LOAD,
-    list,
-  };
-}
-
-export function resetPageNumber() {
-  return {
-    type: RESET_PAGE_NUMBER,
-  };
-}
-
-function fetchEventLog(getState, fetch) {
-  const { page_number: page, limit } = getState().data.event_log;
-  const { is_error,
-    event_date_from,
-    event_date_to,
-    check_codes: codes } = getState().ui.event_log.toJS();
-
-  const params = objToQSParams({
-    page,
-    limit,
-    is_error,
-    event_date_from,
-    event_date_to,
-    codes,
-  });
-  return fetch(urlJoin(API_URL, `/events?${params}`));
-}
-
-
-export function load() {
-  return (dispatch, getState, fetch) => {
-    dispatch(resetPageNumber());
-    return fetchEventLog(getState, fetch)
-      .then(response => dispatch(loadSuccess(response.json)));
-  };
-}
-
-export function loadMore() {
-  return (dispatch, getState, fetch) =>
-    fetchEventLog(getState, fetch)
-      .then(response => dispatch(loadMoreSuccess(response.json)));
-}
+};

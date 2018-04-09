@@ -1,7 +1,7 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import App from '../components/app';
-import { signOut } from '../../store/ducks/data/user';
+import { signOut } from '../../store/ducks/ui/user';
 import userSelector from '../../store/selectors/userSelector';
 
 const mapStateToProps = (state) => {
@@ -9,7 +9,6 @@ const mapStateToProps = (state) => {
   return {
     isAuthorized: userData.isAuthorized,
     isLoading: userData.isLoading,
-    userPermission: userData.personalData.permissions,
   };
 };
 

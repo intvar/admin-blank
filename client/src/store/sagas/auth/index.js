@@ -12,7 +12,7 @@ import {
   signOutStart,
   signOutSuccess,
   signOutError,
-} from '../../ducks/data/user';
+} from '../../ducks/ui/user';
 
 export function* signIn({ email, password }) {
   const url = urlJoin(API_URL, '/actions/login');
