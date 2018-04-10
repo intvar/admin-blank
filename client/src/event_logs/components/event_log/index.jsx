@@ -14,7 +14,6 @@ import './event.scss';
 import EventLogItem from '../event_log_item';
 import shapeEvent from '../shapeEvent';
 import EventLogFilters from '../filters';
-
 /**
  * @todo Fix problem with twice call loadmore in infinite scroll
  * https://github.com/CassetteRocks/react-infinite-scroller/issues/143

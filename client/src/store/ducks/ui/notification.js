@@ -1,7 +1,8 @@
 import { Map } from 'immutable';
 
-const OPEN = 'notification/OPEN';
-const HIDE = 'notification/HIDE';
+export const OPEN_NOTIFICATION = 'notification/OPEN_NOTIFICATION';
+export const OPEN = 'notification/OPEN';
+export const HIDE = 'notification/HIDE';
 
 const initialState = Map({
   message: '',
@@ -22,17 +23,3 @@ export default (state = initialState, action) => {
       return state;
   }
 };
-
-export function openNotification({ message, autoHideDuration = 4000 }) {
-  return (dispatch) => {
-    dispatch({
-      type: OPEN,
-      message,
-      autoHideDuration,
-    });
-
-    setTimeout(() => {
-      dispatch({ type: HIDE });
-    }, autoHideDuration);
-  };
-}

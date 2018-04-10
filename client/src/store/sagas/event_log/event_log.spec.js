@@ -26,13 +26,8 @@ describe('event log sagas', () => {
   });
 
   it('reload', () => {
-    const url = '/api/v1/events?page=1&is_error=0';
     const iterator = reloadEventLog();
     expect(iterator.next().value).toEqual(put(reset()));
-    expect(iterator.next().value).toEqual(select(getPageNumber));
-    expect(iterator.next(1).value).toEqual(select(getFilters));
-    expect(iterator.next({ is_error: 0 }).value).toEqual(put(loadStart()));
-    expect(iterator.next().value).toEqual(call(axios.get, url));
-    expect(iterator.next(response).value).toEqual(put(loadSuccess(response.data)));
+    expect(iterator.next().value).toEqual(call(loadEventLog));
   });
 });

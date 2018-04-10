@@ -29,7 +29,7 @@ export function* loadEventLog() {
 export function* reloadEventLog() {
   try {
     yield put(reset());
-    yield* loadEventLog();
+    yield call(loadEventLog);
   } catch (err) {
     console.log(err);
   }
