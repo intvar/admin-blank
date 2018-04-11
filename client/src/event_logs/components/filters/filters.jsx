@@ -8,11 +8,6 @@ import IsErrorFilter from './isErrorFilter';
 import CodesFilter from './CodesFilter';
 import './style.scss';
 
-const dateFieldFormat = (value) => {
-  if (value === '') return null;
-  return value;
-};
-
 class EventLogFilters extends Component {
   componentDidMount() {
     this.props.onLoad();
@@ -29,14 +24,14 @@ class EventLogFilters extends Component {
               component={DatePicker}
               name="event_date_from"
               hintText="Date from"
-              format={dateFieldFormat}
+              format={null}
             />
             <Field
               component={DatePicker}
               name="event_date_to"
               hintText="Date to"
               className="events-filters__dates-right"
-              format={dateFieldFormat}
+              format={null}
             />
           </div>
           <RaisedButton className="events-filters__button" label="Apply" primary type="submit" />

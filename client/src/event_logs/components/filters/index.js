@@ -12,10 +12,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   onLoad,
   onSubmit,
-  initialValues: {
-    event_date_from: null,
-    event_date_to: null,
-  },
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({

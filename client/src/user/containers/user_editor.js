@@ -1,19 +1,50 @@
 import { connect } from 'react-redux';
+import { reduxForm } from 'redux-form';
+import pick from 'lodash/pick';
 import UserEditor from '../components/user_editor';
-import { updateUser, fetchUser, addUser } from '../../store/ducks/data/users';
+import { RETRIEVE_ONE, UPDATE } from '../../store/ducks/data/users';
+import getUsers from '../../store/selectors/usersSelector';
 
-const mapStateToProps = (state, props) => ({
-  user: props.match.params.id ? state.data.users.get('users').find(user => user.id === +props.match.params.id) : null,
-  action: props.match.params.action,
-  isLoading: state.ui.loader.get('isLoading'),
-  id: props.match.params.id,
-  userPermission: state.data.user.toJS().personalData.permissions,
-});
-
-const actionsMap = {
-  onUserSave: updateUser,
-  onUserAdd: addUser,
-  onUserFetch: fetchUser,
+const validate = ({ first_name, last_name }) => {
+  const errors = {};
+  if (!first_name) {
+    errors.first_name = 'Required';
+  }
+  if (!last_name) {
+    errors.last_name = 'Required';
+  }
+  if (first_name && first_name.length > 50) {
+    errors.first_name = 'Must be 50 characters or less';
+  }
+  if (last_name && last_name.length > 50) {
+    errors.last_name = 'Must be 50 characters or less';
+  }
+  return errors;
 };
 
-export default connect(mapStateToProps, actionsMap)(UserEditor);
+const mapStateToProps = (state, props) => {
+  const userId = props.match.params.id;
+  const users = getUsers(state);
+  const userMap = users.getIn(['list', userId]);
+  return {
+    isLoading: users.get('isLoading'),
+    id: userId,
+    initialValues: userMap && pick(
+      userMap.toJS(),
+      ['status', 'email', 'first_name', 'last_name', 'gender', 'birthdate'],
+    ),
+  };
+};
+
+const mapDispatchToProps = (dispatch, props) => {
+  const userId = props.match.params.id;
+  return {
+    onSubmit: user => dispatch({ type: UPDATE, user, userId }),
+    onUserFetch: () => dispatch({ type: RETRIEVE_ONE, userId }),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
+  form: 'userEditor',
+  validate,
+})(UserEditor));

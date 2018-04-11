@@ -8,7 +8,7 @@ import IconButton from 'material-ui/IconButton';
 import { List, ListItem } from 'material-ui/List';
 import ReactInfinite from 'react-infinite-scroll-component';
 import { Link } from 'react-router-dom';
-import { USER_STATUSES, USER_KYC_STATUSES } from '../../constants';
+import { USER_STATUSES } from '../../constants';
 import { ContentAddButton, SearchNotFound, ContentSpinner } from '../../../core/';
 import UsersFilters from './containers/usersFilters';
 
@@ -23,43 +23,35 @@ const listItemStyle = {
 const linkStyle = {
   textDecoration: 'none',
 };
-
+/**
+ * @todo Add dialog for user delete.
+ */
 export default class Users extends React.Component {
-  static getPermissionsText(permissions) {
-    /* eslint no-confusing-arrow: 0 */
-    return permissions ?
-      Object.keys(permissions)
-        .reduce(
-          (acc, permission) => permissions[permission] ? `${acc} ${permission.slice(0, 1).toUpperCase()}${permission.slice(1)}.` : '',
-          '',
-        )
-      :
-      '';
-  }
-
   static getSecondaryText(user) {
-    return `${USER_STATUSES[user.status]}.
-    ${Users.getPermissionsText(user.permissions)}
-    KYC status: ${USER_KYC_STATUSES[user.kyc_status].toLowerCase()}.
-    ${user.whitelist_status ? 'Included in whitelist.' : ''}`;
+    return `${USER_STATUSES[user.status]}.`;
   }
 
   constructor() {
     super();
-
-    this.onDeleteClick = (e) => {
-      e.preventDefault();
-      const userId = e.currentTarget.getAttribute('data-user-id');
-      this.props.onDeleteUser(userId);
-    };
+    this.onDeleteClick = this.onDeleteClick.bind(this);
   }
 
   componentWillMount() {
     this.props.onDataRequest();
   }
 
+  onDeleteClick(e, userId) {
+    e.preventDefault();
+    this.props.onDeleteUser(userId);
+  }
+
   render() {
-    const { users, isLoading, hasMoreUsers, onMoreDataRequest, userPermission } = this.props;
+    const {
+      users,
+      isLoading,
+      hasMoreUsers,
+      onDataRequest,
+    } = this.props;
 
     const renderUsers = () => (
       <List className="users" style={listStyles}>
@@ -73,7 +65,7 @@ export default class Users extends React.Component {
                   secondaryText={Users.getSecondaryText(user)}
                   style={listItemStyle}
                   rightIconButton={
-                    <IconButton data-user-id={user.id} onClick={this.onDeleteClick}>
+                    <IconButton onClick={e => this.onDeleteClick(e, user.id)}>
                       <DeleteIcon />
                     </IconButton>
                   }
@@ -87,12 +79,12 @@ export default class Users extends React.Component {
 
     return (
       <ReactInfinite
-        next={onMoreDataRequest}
+        next={onDataRequest}
         hasMore={hasMoreUsers}
       >
-        <UsersFilters />
+        {/* <UsersFilters /> */}
         {hasMoreUsers || users.length ? renderUsers() : <SearchNotFound />}
-        <Link to="/users/add/"><ContentAddButton /></Link>
+        {/* <Link to="/users/add/"><ContentAddButton /></Link> */}
         { isLoading ? <ContentSpinner /> : null }
       </ReactInfinite>
     );
@@ -105,7 +97,6 @@ Users.propTypes = {
   })).isRequired,
   isLoading: PropTypes.bool.isRequired,
   onDataRequest: PropTypes.func.isRequired,
-  onMoreDataRequest: PropTypes.func.isRequired,
   onDeleteUser: PropTypes.func.isRequired,
   hasMoreUsers: PropTypes.bool.isRequired,
 };

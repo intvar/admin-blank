@@ -5,8 +5,6 @@ import { stringify } from 'qs';
 import { API_URL } from '../../../core/constants';
 import {
   START,
-  CREATE,
-  CREATE_SUCCESS,
   RETRIEVE_LIST,
   RETRIEVE_LIST_SUCCESS,
   RETRIEVE_ONE,
@@ -19,27 +17,14 @@ import {
 } from '../../ducks/data/users';
 import { openNotification } from '../notification';
 import { getPageNumber } from '../../selectors/usersSelector';
+import history from '../../../core/utils';
 
 const url = urlJoin(API_URL, '/users');
 
 export function* errorHandler(err) {
   yield put({ type: ERROR });
-  if (err && err.data) yield call(openNotification, err.data.error);
-}
-
-export function* create({ user }) {
-  try {
-    yield put({ type: START });
-    const res = yield call(axios.post, url, user);
-    yield put({
-      type: CREATE_SUCCESS,
-      user: {
-        ...user,
-        id: res.data.id,
-      },
-    });
-  } catch (err) {
-    yield call(errorHandler, err);
+  if (err && err.response && err.response.data) {
+    yield call(openNotification, { message: err.response.data.error });
   }
 }
 
@@ -70,6 +55,8 @@ export function* update({ user, userId }) {
     yield put({ type: START });
     yield call(axios.put, `${url}/${userId}`, user);
     yield put({ type: UPDATE_SUCCESS, user, userId });
+    yield call(history.push, '/users');
+    yield call(openNotification, { message: 'User saved successfully' });
   } catch (err) {
     yield call(errorHandler, err);
   }
@@ -86,9 +73,8 @@ export function* deleteUser({ userId }) {
 }
 
 export default [
-  takeLatest(CREATE, create),
-  takeLatest(RETRIEVE_LIST, create),
-  takeLatest(RETRIEVE_ONE, create),
-  takeLatest(UPDATE, create),
-  takeLatest(DELETE, create),
+  takeLatest(RETRIEVE_LIST, retrieveList),
+  takeLatest(RETRIEVE_ONE, retrieveOne),
+  takeLatest(UPDATE, update),
+  takeLatest(DELETE, deleteUser),
 ];

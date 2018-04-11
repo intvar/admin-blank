@@ -1,9 +1,8 @@
 import axios from 'axios';
 import { call, put, select } from 'redux-saga/effects';
-import { create, retrieveList, retrieveOne, update, deleteUser, errorHandler } from './index';
+import { retrieveList, retrieveOne, update, deleteUser, errorHandler } from './index';
 import {
   START,
-  CREATE_SUCCESS,
   RETRIEVE_LIST_SUCCESS,
   RETRIEVE_ONE_SUCCESS,
   UPDATE_SUCCESS,
@@ -12,6 +11,7 @@ import {
 } from '../../ducks/data/users';
 import { openNotification } from '../notification';
 import { getPageNumber } from '../../selectors/usersSelector';
+import history from '../../../core/utils';
 
 const users = [{
   id: 1,
@@ -32,22 +32,17 @@ const { id, ...userWithoutId } = user;
 
 describe('users sagas', () => {
   const err = {
-    data: {
-      error: 'error text',
+    response: {
+      data: {
+        error: 'error text',
+      },
     },
   };
   it('error handler', () => {
     const iterator = errorHandler(err);
     expect(iterator.next().value).toEqual(put({ type: ERROR }));
-    expect(iterator.next().value).toEqual(call(openNotification, err.data.error));
-  });
-  it('create', () => {
-    const iterator = create({ user: userWithoutId });
-    expect(iterator.next().value).toEqual(put({ type: START }));
-    expect(iterator.next().value).toEqual(call(axios.post, '/api/v1/users', userWithoutId));
-    expect(iterator.next({ data: { id } }).value)
-      .toEqual(put({ type: CREATE_SUCCESS, user }));
-    expect(iterator.throw(err).value).toEqual(call(errorHandler, err));
+    expect(iterator.next().value)
+      .toEqual(call(openNotification, { message: err.response.data.error }));
   });
   it('retrieve list', () => {
     const iterator = retrieveList();
@@ -72,6 +67,8 @@ describe('users sagas', () => {
     expect(iterator.next().value).toEqual(call(axios.put, '/api/v1/users/2', userWithoutId));
     expect(iterator.next().value)
       .toEqual(put({ type: UPDATE_SUCCESS, user: userWithoutId, userId: id }));
+    expect(iterator.next().value).toEqual(call(history.push, '/users'));
+    expect(iterator.next().value).toEqual(call(openNotification, { message: 'User saved successfully' }));
     expect(iterator.throw(err).value).toEqual(call(errorHandler, err));
   });
   it('delete', () => {

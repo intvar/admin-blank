@@ -10,14 +10,12 @@ export const initialState = Map({
   isLoading: false,
 });
 
-export const CREATE = '/users/CREATE';
 export const RETRIEVE_LIST = '/users/RETRIEVE_LIST';
 export const RETRIEVE_ONE = '/users/RETRIEVE_ONE';
 export const UPDATE = '/users/UPDATE';
 export const DELETE = '/users/DELETE';
 
 export const START = '/users/START';
-export const CREATE_SUCCESS = '/users/CREATE_SUCCESS';
 export const RETRIEVE_LIST_SUCCESS = '/users/RETRIEVE_LIST_SUCCESS';
 export const RETRIEVE_ONE_SUCCESS = '/users/RETRIEVE_ONE_SUCCESS';
 export const UPDATE_SUCCESS = '/users/UPDATE_SUCCESS';
@@ -37,7 +35,6 @@ export default (
   switch (type) {
     case START:
       return state.set('isLoading', true);
-    case CREATE_SUCCESS:
     case RETRIEVE_ONE_SUCCESS:
       return state.merge({
         isLoading: false,

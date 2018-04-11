@@ -1,6 +1,5 @@
 import reducer, {
   START,
-  CREATE_SUCCESS,
   RETRIEVE_LIST_SUCCESS,
   RETRIEVE_ONE_SUCCESS,
   UPDATE_SUCCESS,
@@ -30,12 +29,6 @@ describe('users reducer', () => {
   it('start', () => {
     const nextState = reducer(initialState, { type: START });
     expect(nextState.get('isLoading')).toBeTruthy();
-  });
-  it('create', () => {
-    const currentState = initialState.set('isLoading', true);
-    const nextState = reducer(currentState, { type: CREATE_SUCCESS, user });
-    expect(nextState.get('isLoading')).toBeFalsy();
-    expect(nextState.get('list').toJS()).toEqual({ 2: user });
   });
   it('retrieve list', () => {
     const currentState = initialState.set('isLoading', true);

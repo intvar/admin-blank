@@ -9,7 +9,6 @@ const mapStateToProps = state => usersFilterSelector(state);
 const mapDispatchToProps = {
   onChangeSearchCriterion: searchCriterionChange,
   onChangeStatus: statusChange,
-  onChangeKycStatus: kycStatusChange,
   onClickApply: fetchUsers,
   onClickReset: resetFiltersAndRefetchUsers,
 };
