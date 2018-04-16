@@ -13,10 +13,10 @@ class EventLogFilters extends Component {
     this.props.onLoad();
   }
   render() {
-    const { handleSubmit, eventCodes, reset } = this.props;
+    const { eventCodes, reset } = this.props;
     return (
       <Paper className="events-filters">
-        <form onSubmit={handleSubmit}>
+        <form>
           <IsErrorFilter />
           <CodesFilter codes={eventCodes} />
           <div className="events-filters__dates">
@@ -34,8 +34,7 @@ class EventLogFilters extends Component {
               format={null}
             />
           </div>
-          <RaisedButton className="events-filters__button" label="Apply" primary type="submit" />
-          <RaisedButton className="events-filters__button-reset" label="Reset" onClick={reset} />
+          <RaisedButton className="events-filters__button" secondary label="Reset" onClick={reset} />
         </form>
       </Paper>
     );
@@ -44,7 +43,6 @@ class EventLogFilters extends Component {
 
 EventLogFilters.propTypes = {
   eventCodes: PropTypes.arrayOf(PropTypes.string).isRequired,
-  handleSubmit: PropTypes.func.isRequired,
   onLoad: PropTypes.func.isRequired,
   reset: PropTypes.func.isRequired,
 };

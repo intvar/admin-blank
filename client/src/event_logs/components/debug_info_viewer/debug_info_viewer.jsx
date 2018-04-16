@@ -8,15 +8,12 @@ import './style.scss';
 
 export default class DebugInfoView extends React.PureComponent {
   render() {
-    const { isFetching, debugInfo, errorText } = this.props;
-
+    const { isLoading, debugInfo } = this.props;
+    if (isLoading) return <ContentSpinner />;
     return (
       <div className="debig-info-viewer">
         {
-          isFetching ?
-            <ContentSpinner />
-            :
-            (debugInfo && <ReactJsonView src={debugInfo} displayDataTypes={false} />) || errorText || 'Empty debug info'
+          debugInfo ? <ReactJsonView src={debugInfo} displayDataTypes={false} /> : 'Empty debug info'
         }
       </div>
     );
@@ -25,11 +22,9 @@ export default class DebugInfoView extends React.PureComponent {
 
 DebugInfoView.defaultProps = {
   debugInfo: null,
-  errorText: null,
 };
 
 DebugInfoView.propTypes = {
-  isFetching: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool.isRequired,
   debugInfo: PropTypes.object,
-  errorText: PropTypes.string,
 };

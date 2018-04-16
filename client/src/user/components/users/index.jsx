@@ -6,10 +6,9 @@ import UserIcon from 'material-ui/svg-icons/social/person';
 import DeleteIcon from 'material-ui/svg-icons/action/delete';
 import IconButton from 'material-ui/IconButton';
 import { List, ListItem } from 'material-ui/List';
-import ReactInfinite from 'react-infinite-scroll-component';
 import { Link } from 'react-router-dom';
 import { USER_STATUSES } from '../../constants';
-import { ContentAddButton, SearchNotFound, ContentSpinner } from '../../../core/';
+import { SearchNotFound, ContentSpinner, InfiniteScroll } from '../../../core/';
 import UsersFilters from './containers/usersFilters';
 
 import './style.scss';
@@ -78,15 +77,16 @@ export default class Users extends React.Component {
     );
 
     return (
-      <ReactInfinite
-        next={onDataRequest}
+      <InfiniteScroll
+        isLoading={isLoading}
+        onLoadMore={onDataRequest}
         hasMore={hasMoreUsers}
       >
         {/* <UsersFilters /> */}
         {hasMoreUsers || users.length ? renderUsers() : <SearchNotFound />}
         {/* <Link to="/users/add/"><ContentAddButton /></Link> */}
         { isLoading ? <ContentSpinner /> : null }
-      </ReactInfinite>
+      </InfiniteScroll>
     );
   }
 }

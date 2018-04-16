@@ -1,5 +1,5 @@
-import { Map } from 'immutable';
-import reducer, { loadStart, loadSuccess, reset, initialState } from './index';
+import { Map, OrderedMap } from 'immutable';
+import reducer, { loadStart, loadSuccess, reset, initialState, LOAD_DEBUG_INFO_SUCCESS } from './index';
 
 
 const event_logs = [{
@@ -44,7 +44,7 @@ describe('event log reducer', () => {
     it('should load success for not empty list', () => {
       const currentState = initialState.merge({
         isLoading: true,
-        list: Map({
+        list: OrderedMap({
           11: {
             id: 11,
             event_id: 'users_list',
@@ -74,27 +74,53 @@ describe('event log reducer', () => {
         },
       });
     });
-    it('reset', () => {
-      const currentState = Map({
-        hasMore: false,
-        pageNumber: 2,
-        isLoading: false,
-        list: Map({
+  });
+  describe('load debug_info', () => {
+    it('should add debug info', () => {
+      const currentState = initialState.merge({
+        isLoading: true,
+        list: OrderedMap({
           11: {
             id: 11,
             event_id: 'users_list',
           },
-          12: {
-            id: 12,
-            event_id: 'users_read',
-          },
         }),
       });
-      const nextState = reducer(currentState, reset());
-      expect(nextState.get('hasMore')).toBeTruthy();
-      expect(nextState.get('pageNumber')).toBe(1);
+      const debug_info = { body: {}, params: { id: 9999 } };
+      const nextState = reducer(currentState, {
+        type: LOAD_DEBUG_INFO_SUCCESS,
+        debug_info,
+        event_log_id: 11,
+      });
       expect(nextState.get('isLoading')).toBeFalsy();
-      expect(nextState.get('list').size).toBe(0);
+      expect(nextState.get('list').size).toBe(1);
+      expect(nextState.getIn(['list', '11'])).toEqual({
+        id: 11,
+        event_id: 'users_list',
+        debug_info,
+      });
     });
+  });
+  it('reset', () => {
+    const currentState = Map({
+      hasMore: false,
+      pageNumber: 2,
+      isLoading: false,
+      list: OrderedMap({
+        11: {
+          id: 11,
+          event_id: 'users_list',
+        },
+        12: {
+          id: 12,
+          event_id: 'users_read',
+        },
+      }),
+    });
+    const nextState = reducer(currentState, reset());
+    expect(nextState.get('hasMore')).toBeTruthy();
+    expect(nextState.get('pageNumber')).toBe(1);
+    expect(nextState.get('isLoading')).toBeFalsy();
+    expect(nextState.get('list').size).toBe(0);
   });
 });

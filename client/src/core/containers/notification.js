@@ -3,7 +3,6 @@ import Snackbar from 'material-ui/Snackbar';
 
 const mapStateToProps = (state) => {
   const notificiationState = state.ui.notification.toJS();
-
   return {
     message: notificiationState.message,
     open: notificiationState.open,

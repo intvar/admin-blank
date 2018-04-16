@@ -1,15 +1,12 @@
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import dialogSelector from '../../store/selectors/dialogSelector';
-import { acceptDialog, cancelDialog, hideDialog, outsideHideDialog } from '../../store/ducks/ui/dialog';
 import Dialog from '../components/dialog';
+import { HIDE } from '../../store/ducks/ui/dialog';
 
-const mapStateToProps = state => ({ options: dialogSelector(state) });
-const mapDispatchToProps = dispatch => bindActionCreators({
-  onAcceptDialog: acceptDialog,
-  onCancelDialog: cancelDialog,
-  onHideDialog: hideDialog,
-  onOutsideHideDialog: outsideHideDialog,
-}, dispatch);
+const mapStateToProps = state => (dialogSelector(state));
+const mapDispatchToProps = {
+  closeDialog: () => ({ type: HIDE }),
+};
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dialog);

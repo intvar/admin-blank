@@ -1,5 +1,15 @@
 import { connect } from 'react-redux';
-import eventLogDebugInfoSelector from '../../../store/selectors/eventLogDebugInfoSelector';
 import DebugInfoViewer from './debug_info_viewer';
+import getEventLogs, { getSelectedEventLog } from '../../../store/selectors/eventLogSelector';
 
-export default connect(state => eventLogDebugInfoSelector(state))(DebugInfoViewer);
+const mapStateToProps = (state) => {
+  const isLoading = getEventLogs(state).get('isLoading');
+  const currentEventLog = getSelectedEventLog(state);
+  const debugInfo = currentEventLog && currentEventLog.debug_info;
+  return {
+    isLoading,
+    debugInfo: debugInfo || null,
+  };
+};
+
+export default connect(mapStateToProps)(DebugInfoViewer);

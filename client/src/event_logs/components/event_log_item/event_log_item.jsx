@@ -27,11 +27,18 @@ export default class EventLogItem extends React.PureComponent {
   }
 
   render() {
-    const { id, event_id, event_date, is_error, description, user_id } = this.props;
+    const {
+      id,
+      event_id,
+      event_date,
+      is_error,
+      description,
+      user_id,
+    } = this.props;
 
     return (
       <TableRow className="event-log__item" onClick={this.getClickHandler(id)}>
-        <TableRowColumn className="event-log__column-event"><b>{event_id}</b></TableRowColumn>
+        <TableRowColumn className="event-log__column-event">{event_id}</TableRowColumn>
         <TableRowColumn className="event-log__column-date">
           {EventLogItem.getHumanReadableDate(event_date)}
         </TableRowColumn>
