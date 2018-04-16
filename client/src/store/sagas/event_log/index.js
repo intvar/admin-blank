@@ -7,7 +7,7 @@ import { LOAD, RELOAD, LOAD_SUCCESS, RESET, LOAD_START, LOAD_DEBUG_INFO_SUCCESS,
 import { SET_CURRENT_ID } from '../../ducks/ui/selectedEventLogId';
 import { API_URL } from '../../../core/constants';
 import { openNotification } from '../notification';
-import { showModal } from '../dialog';
+import { showInfo } from '../dialog';
 import DebugInfoViewer from '../../../event_logs/components/debug_info_viewer';
 
 export function* errorHandler(err) {
@@ -61,7 +61,7 @@ export function* loadDebugInfo({ event_log_id }) {
 export function* showDebugInfoModal({ event_log_id }) {
   yield put({ type: SET_CURRENT_ID, event_log_id });
   const eventLog = yield select(getSelectedEventLog);
-  yield showModal({
+  yield showInfo({
     title: 'Debug info',
     component: DebugInfoViewer,
   });
