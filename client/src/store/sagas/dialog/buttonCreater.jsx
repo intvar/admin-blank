@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import FlatButton from 'material-ui/FlatButton';
 
-const HideButton = ({
+const Button = ({
   clickHandler,
   label,
   primary,
@@ -13,16 +13,19 @@ const HideButton = ({
   onClick={clickHandler}
 />);
 
-HideButton.propTypes = {
+Button.propTypes = {
   clickHandler: PropTypes.func.isRequired,
   label: PropTypes.string.isRequired,
   primary: PropTypes.bool,
 };
 
-HideButton.defaultProps = {
+Button.defaultProps = {
   primary: true,
 };
 
-export default actionType => connect(null, {
-  clickHandler: () => ({ type: actionType }),
-})(HideButton);
+export default actions => connect(null, dispatch => ({
+  clickHandler: () => {
+    if (Array.isArray(actions)) actions.map(dispatch);
+    else dispatch(actions);
+  },
+}))(Button);

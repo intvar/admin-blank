@@ -18,6 +18,7 @@ import {
 import { openNotification } from '../notification';
 import { getPageNumber } from '../../selectors/usersSelector';
 import history from '../../../core/utils';
+import { askQuestions } from '../dialog';
 
 const url = urlJoin(API_URL, '/users');
 

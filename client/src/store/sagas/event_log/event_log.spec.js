@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { put, call, select } from 'redux-saga/effects';
 import { loadEventLog, reloadEventLog, loadDebugInfo, errorHandler } from './';
-import { loadStart, loadSuccess, reset, LOAD_START, LOAD_DEBUG_INFO_SUCCESS } from '../../ducks/data/event_log';
+import { LOAD_SUCCESS, RESET, LOAD_START, LOAD_DEBUG_INFO_SUCCESS } from '../../ducks/data/event_log';
 import { getPageNumber, getFilters } from '../../selectors/eventLogSelector';
 
 describe('event log sagas', () => {
@@ -24,14 +24,17 @@ describe('event log sagas', () => {
     const iterator = loadEventLog();
     expect(iterator.next().value).toEqual(select(getPageNumber));
     expect(iterator.next(1).value).toEqual(select(getFilters));
-    expect(iterator.next({ is_error: 1 }).value).toEqual(put(loadStart()));
+    expect(iterator.next({ is_error: 1 }).value).toEqual(put({ type: LOAD_START }));
     expect(iterator.next().value).toEqual(call(axios.get, url));
-    expect(iterator.next(response).value).toEqual(put(loadSuccess(response.data)));
+    expect(iterator.next(response).value).toEqual(put({
+      type: LOAD_SUCCESS,
+      event_logs: response.data,
+    }));
   });
 
   it('reload', () => {
     const iterator = reloadEventLog();
-    expect(iterator.next().value).toEqual(put(reset()));
+    expect(iterator.next().value).toEqual(put({ type: RESET }));
     expect(iterator.next().value).toEqual(call(loadEventLog));
   });
 

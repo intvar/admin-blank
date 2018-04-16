@@ -1,7 +1,9 @@
 import React from 'react';
-import { put, call } from 'redux-saga/effects';
+import { put, call, takeLatest } from 'redux-saga/effects';
 import { SHOW, HIDE } from '../../ducks/ui/dialog';
 import buttonCreater from './buttonCreater';
+
+export const ASK_QUESTION = 'dialog/ASK_QUESTION';
 
 export function* showDialog({
   dialogProperties,
@@ -21,7 +23,7 @@ export function* showInfo({
   component,
   componentProperties,
 }) {
-  const HideButton = buttonCreater(HIDE);
+  const HideButton = buttonCreater({ type: HIDE });
   const dialogProperties = {
     title,
     modal: false,
@@ -29,3 +31,32 @@ export function* showInfo({
   };
   yield call(showDialog, { dialogProperties, component, componentProperties });
 }
+
+export function* askQuestions({
+  title,
+  question,
+  closeButtonLabel = 'cancel',
+  acceptButtonLabel = 'ok',
+  action,
+}) {
+  const CancelButton = buttonCreater({ type: HIDE });
+  const AcceptButton = buttonCreater([action, { type: HIDE }]);
+  const actions = [
+    React.createElement(AcceptButton, { label: acceptButtonLabel }),
+    React.createElement(CancelButton, { label: closeButtonLabel, primary: false }),
+  ];
+  const component = () => question;
+  const dialogProperties = {
+    title,
+    component,
+    actions,
+  };
+  yield call(showDialog, {
+    dialogProperties,
+    component,
+  });
+}
+
+export default [
+  takeLatest(ASK_QUESTION, askQuestions),
+];

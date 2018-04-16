@@ -16,7 +16,9 @@ import EventLogFilters from '../filters';
 
 class EventLog extends Component {
   componentDidMount() {
-    this.props.loadEventLog();
+    if (!this.props.list.length) {
+      this.props.loadEventLog();
+    }
   }
   renderTables() {
     return (

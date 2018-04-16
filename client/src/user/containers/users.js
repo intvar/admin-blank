@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import Users from '../components/users';
 import usersSelector from '../../store/selectors/usersSelector';
 import { RETRIEVE_LIST, DELETE } from '../../store/ducks/data/users';
+import { ASK_QUESTION } from '../../store/sagas/dialog';
 
 const mapStateToProps = (state) => {
   const users = usersSelector(state);
@@ -14,7 +15,15 @@ const mapStateToProps = (state) => {
 
 const actionCreators = {
   onDataRequest: () => ({ type: RETRIEVE_LIST }),
-  onDeleteUser: userId => ({ type: DELETE, userId }),
+  onDeleteUser: userId => ({
+    type: ASK_QUESTION,
+    title: 'Delete user',
+    question: 'Are you sure you want to delete this user?',
+    action: {
+      type: DELETE,
+      userId,
+    },
+  }),
 };
 
 export default connect(mapStateToProps, actionCreators)(Users);

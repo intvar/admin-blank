@@ -24,6 +24,7 @@ const linkStyle = {
 };
 /**
  * @todo Add dialog for user delete.
+ * @todo Add filters
  */
 export default class Users extends React.Component {
   static getSecondaryText(user) {
@@ -35,8 +36,10 @@ export default class Users extends React.Component {
     this.onDeleteClick = this.onDeleteClick.bind(this);
   }
 
-  componentWillMount() {
-    this.props.onDataRequest();
+  componentDidMount() {
+    if (!this.props.users.length) {
+      this.props.onDataRequest();
+    }
   }
 
   onDeleteClick(e, userId) {
