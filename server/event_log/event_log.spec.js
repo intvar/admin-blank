@@ -32,7 +32,7 @@ describe('event log rests', () => {
         .get('/api/v1/events')
         .expect(200)
         .query({
-          codes: 'users_list, users_read',
+          codes: ['users_list', 'users_read'],
         })
         .then((res) => {
           expect(Array.isArray(res.body)).toBeTruthy();

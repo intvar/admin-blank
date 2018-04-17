@@ -6,6 +6,7 @@ const { createFromArray, destroyAll } = require('../lib/util');
 const { pick } = require('lodash');
 const { send } = require('../lib/mailjet');
 const sequelize = require('../lib/sequelize');
+const { ADMIN_STATUS_REMOVED, ADMIN_STATUS_WAITING_VERIFYING } = require('../constants');
 
 
 jest.mock('../lib/mailjet');
@@ -27,7 +28,6 @@ describe('admins rests', () => {
         first_name: 'Josephine',
         last_name: 'Moreno',
         email: 'moreno@email.com',
-        status: 1,
       };
       const res = await request(app)
         .post('/api/v1/admins')
@@ -35,8 +35,9 @@ describe('admins rests', () => {
         .expect(200);
       const adminId = res.body.id;
       expect(adminId).toBeNumber();
-      const admin = pick(await Admin.findById(adminId), ['first_name', 'last_name', 'email', 'status']);
-      expect(admin).toEqual(adminData);
+      const admin = await Admin.findById(adminId);
+      expect(pick(admin, ['first_name', 'last_name', 'email'])).toEqual(adminData);
+      expect(admin.status).toBe(ADMIN_STATUS_WAITING_VERIFYING);
       expect(send).toBeCalled();
       const sendParams = send.mock.calls[0][0];
       expect(sendParams.email).toBe(adminData.email);
@@ -94,6 +95,20 @@ describe('admins rests', () => {
       expect(status).toBe(0);
       expect(first_name).toBe('test_first_name');
       expect(last_name).toBe('test_last_name');
+    });
+  });
+  describe('delete', () => {
+    it('should return 400 http code', async () => {
+      await request(app).delete('/api/v1/admins/i_am_bad_ID').expect(400);
+    });
+    it('should return 404 http code', async () => {
+      await request(app).delete('/api/v1/admins/9999').expect(404);
+    });
+    it('should remove an admin(set `ADMIN_STATUS_REMOVED` status)', async () => {
+      const adminId = admins[0].id;
+      await request(app).delete(`/api/v1/admins/${adminId}`).expect(204);
+      const admin = await Admin.findById(adminId);
+      expect(admin.status).toBe(ADMIN_STATUS_REMOVED);
     });
   });
 });

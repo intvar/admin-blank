@@ -37,15 +37,13 @@ exports.retrieve = async (req, res) => {
     where.event_date[Op.lte] = event_date_to;
   }
 
-  if (codes) {
-    const codesArr = codes.split(',').map(e => e.trim());
-    where.event_id = { [Op.in]: codesArr };
+  if (Array.isArray(codes)) {
+    where.event_id = { [Op.in]: codes };
   }
 
   if (user_id) {
     where.user_id = user_id;
   }
-
   if (is_error !== undefined) {
     FV('is_error', +is_error).isInteger({ min: 0, max: 1 });
     where.is_error = +is_error;

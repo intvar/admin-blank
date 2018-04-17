@@ -29,8 +29,6 @@ exports.login = (req, res, next) => {
         email: admin.email,
         first_name: admin.first_name,
         last_name: admin.last_name,
-        gender: admin.gender,
-        birthday: admin.birthday,
       });
     });
   })(req, res, next);

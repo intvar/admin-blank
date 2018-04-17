@@ -4,6 +4,7 @@ const {
   retrieve,
   retrieveById,
   update,
+  delete: deleteAdmin,
 } = require('./controllers');
 const { setEventId, asyncMiddleware } = require('../lib/util');
 
@@ -31,5 +32,11 @@ module.exports = (app) => {
     setEventId('admin_admin_update'),
     isLoggedIn,
     asyncMiddleware(update),
+  );
+  app.delete(
+    '/api/v1/admins/:id',
+    setEventId('admin_admin_delete'),
+    isLoggedIn,
+    asyncMiddleware(deleteAdmin),
   );
 };

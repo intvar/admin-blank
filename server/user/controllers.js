@@ -91,11 +91,8 @@ exports.update = async (req, res) => {
 
 exports.delete = async (req, res) => {
   const user_id = +req.params.user_id;
-
-  const result = await User.destroy({ where: { id: user_id } });
-  if (result === 0) {
-    throw createError(`user with id = ${user_id} not found`, 404, 'err_user_not_found');
-  }
+  await getUserById(user_id);
+  await User.destroy({ where: { id: user_id } });
   saveEventLog(req, false, 'user delete successfully');
   res.status(204).send();
 };
