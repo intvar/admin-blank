@@ -1,6 +1,5 @@
 import { Map, OrderedMap } from 'immutable';
-import reducer, { loadStart, loadSuccess, reset, initialState, LOAD_DEBUG_INFO_SUCCESS } from './index';
-
+import reducer, { LOAD_START, LOAD_SUCCESS, RESET, LOAD_DEBUG_INFO_SUCCESS, initialState } from './index';
 
 const event_logs = [{
   id: 11,
@@ -20,13 +19,13 @@ const event_logs_second = [{
 
 describe('event log reducer', () => {
   it('load start', () => {
-    const nextState = reducer(initialState, loadStart());
+    const nextState = reducer(initialState, { type: LOAD_START });
     expect(nextState.get('isLoading')).toBeTruthy();
   });
   describe('load success', () => {
     it('should load success for empty list', () => {
       const currentState = initialState.set('isLoading', true);
-      const nextState = reducer(currentState, loadSuccess(event_logs));
+      const nextState = reducer(currentState, { type: LOAD_SUCCESS, event_logs });
       expect(nextState.get('isLoading')).toBeFalsy();
       expect(nextState.get('pageNumber')).toBe(2);
       expect(nextState.get('hasMore')).toBeFalsy();
@@ -55,7 +54,10 @@ describe('event log reducer', () => {
           },
         }),
       });
-      const nextState = reducer(currentState, loadSuccess(event_logs_second));
+      const nextState = reducer(currentState, {
+        type: LOAD_SUCCESS,
+        event_logs: event_logs_second,
+      });
       expect(nextState.get('isLoading')).toBeFalsy();
       expect(nextState.get('pageNumber')).toBe(2);
       expect(nextState.get('hasMore')).toBeFalsy();
@@ -117,7 +119,7 @@ describe('event log reducer', () => {
         },
       }),
     });
-    const nextState = reducer(currentState, reset());
+    const nextState = reducer(currentState, { type: RESET });
     expect(nextState.get('hasMore')).toBeTruthy();
     expect(nextState.get('pageNumber')).toBe(1);
     expect(nextState.get('isLoading')).toBeFalsy();

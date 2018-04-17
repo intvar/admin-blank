@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import FlatButton from 'material-ui/FlatButton';
 import './style.scss';
-import logo from './images/logo.png';
+// import logo from './images/logo.png';
 import { PRIMARY_COLOR } from '../../constants';
 
 const MenuItemStyles = {
@@ -25,11 +25,11 @@ class Header extends Component {
   render(){
     return(
       <div className="header">
-        <img
+        {/* <img
           className="header__logo"
           src={logo}
-          alt="tokeny - taken crowdale solutions"
-        />
+          alt=""
+        /> */}
         <FlatButton label="Log Out" onClick={this.props.onSignOutClick} />
       </div>
     )

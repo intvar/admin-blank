@@ -7,11 +7,8 @@ import DeleteIcon from 'material-ui/svg-icons/action/delete';
 import IconButton from 'material-ui/IconButton';
 import { List, ListItem } from 'material-ui/List';
 import { Link } from 'react-router-dom';
-import { USER_STATUSES } from '../../constants';
-import { SearchNotFound, ContentSpinner, InfiniteScroll } from '../../../core/';
-import UsersFilters from './containers/usersFilters';
-
-import './style.scss';
+import { ADMIN_STATUSES } from '../../constants';
+import { SearchNotFound, ContentSpinner, InfiniteScroll, ContentAddButton } from '../../../core/';
 
 const listStyles = {
   padding: '0px',
@@ -22,51 +19,47 @@ const listItemStyle = {
 const linkStyle = {
   textDecoration: 'none',
 };
-/**
- * @todo Add filters
- */
-export default class Users extends React.Component {
-  static getSecondaryText(user) {
-    return `${USER_STATUSES[user.status]}.`;
+
+export default class Admins extends React.Component {
+  static getSecondaryText(admin) {
+    return `${ADMIN_STATUSES[admin.status]}.`;
   }
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.onDeleteClick = this.onDeleteClick.bind(this);
   }
 
   componentDidMount() {
-    if (!this.props.users.length) {
-      this.props.onDataRequest();
-    }
+    this.props.reload();
   }
 
-  onDeleteClick(e, userId) {
+  onDeleteClick(e, AdminId) {
     e.preventDefault();
-    this.props.onDeleteUser(userId);
+    this.props.onDeleteAdmin(AdminId);
   }
 
   render() {
     const {
-      users,
+      admins,
       isLoading,
-      hasMoreUsers,
+      hasMoreAdmins,
       onDataRequest,
     } = this.props;
 
-    const renderUsers = () => (
+    const renderAdmins = () => (
       <List className="users" style={listStyles}>
         {
-          users.map(user => (
-            <Link to={`/users/edit/${user.id}`} key={String(user.id)} style={linkStyle}>
+          admins.map(admin => (
+            <Link to={`/admins/${admin.id}`} key={String(admin.id)} style={linkStyle}>
               <Paper className="users__item">
                 <ListItem
-                  leftAvatar={<Avatar src={user.photo} icon={<UserIcon />} />}
-                  primaryText={`${user.first_name} ${user.last_name}`}
-                  secondaryText={Users.getSecondaryText(user)}
+                  leftAvatar={<Avatar src={admin.photo} icon={<UserIcon />} />}
+                  primaryText={`${admin.first_name} ${admin.last_name}`}
+                  secondaryText={Admins.getSecondaryText(admin)}
                   style={listItemStyle}
                   rightIconButton={
-                    <IconButton onClick={e => this.onDeleteClick(e, user.id)}>
+                    <IconButton onClick={e => this.onDeleteClick(e, admin.id)}>
                       <DeleteIcon />
                     </IconButton>
                   }
@@ -82,23 +75,24 @@ export default class Users extends React.Component {
       <InfiniteScroll
         isLoading={isLoading}
         onLoadMore={onDataRequest}
-        hasMore={hasMoreUsers}
+        hasMore={hasMoreAdmins}
       >
-        {/* <UsersFilters /> */}
-        {hasMoreUsers || users.length ? renderUsers() : <SearchNotFound />}
+        {hasMoreAdmins || Admins.length ? renderAdmins() : <SearchNotFound />}
+        <Link to="/admins/add"><ContentAddButton /></Link>
         { isLoading ? <ContentSpinner /> : null }
       </InfiniteScroll>
     );
   }
 }
 
-Users.propTypes = {
-  users: PropTypes.arrayOf(PropTypes.shape({
+Admins.propTypes = {
+  admins: PropTypes.arrayOf(PropTypes.shape({
     photo: PropTypes.string,
   })).isRequired,
   isLoading: PropTypes.bool.isRequired,
   onDataRequest: PropTypes.func.isRequired,
-  onDeleteUser: PropTypes.func.isRequired,
-  hasMoreUsers: PropTypes.bool.isRequired,
+  reload: PropTypes.func.isRequired,
+  onDeleteAdmin: PropTypes.func.isRequired,
+  hasMoreAdmins: PropTypes.bool.isRequired,
 };
 

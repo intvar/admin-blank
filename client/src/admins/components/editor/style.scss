@@ -1,0 +1,19 @@
+.admin-editor__form {
+  padding:20px;
+}
+
+.admin-editor__buttons {
+  padding-top:20px;
+}
+
+.admin-editor__button-cancel {
+  margin-left:20px;
+}
+
+.admin-editor__form-container {
+  display:flex;
+}
+
+.admin-editor__form-container > div:nth-child(2) {
+  margin-left:20px;
+}

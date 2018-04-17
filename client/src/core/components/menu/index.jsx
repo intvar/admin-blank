@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 
 import BugReport from 'material-ui/svg-icons/action/bug-report';
 import Person from 'material-ui/svg-icons/social/person';
+import Admin from 'material-ui/svg-icons/action/supervisor-account';
 
 import './style.scss';
 
@@ -13,6 +14,11 @@ function headMenu() {
   return (
     <Paper className="menu">
       <Menu className="menu__self">
+        <MenuItem
+          primaryText="Admins"
+          leftIcon={<Admin />}
+          containerElement={<Link to="/admins" />}
+        />
         <MenuItem
           primaryText="Users"
           leftIcon={<Person />}

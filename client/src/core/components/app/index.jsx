@@ -7,6 +7,7 @@ import Menu from '../menu';
 import Header from '../header/index';
 import EventLog from '../../../event_logs/containers/event_log';
 import { Users, UserEditor } from '../../../user/';
+import { Admins, AdminEditor } from '../../../admins';
 import history from '../../utils';
 import Notification from '../../containers/notification';
 import Dialog from '../../containers/dialog';
@@ -45,6 +46,9 @@ export default class App extends React.Component {
                 <PrivateRoute path="/users/:action/:id" component={UserEditor} />
                 <PrivateRoute path="/users/:action/" component={UserEditor} />
                 <PrivateRoute path="/users" component={Users} />
+                <PrivateRoute path="/admins/add" component={AdminEditor} />
+                <PrivateRoute path="/admins/:id" component={AdminEditor} />
+                <PrivateRoute path="/admins" component={Admins} />
               </Switch>
             </div>
           </div>
