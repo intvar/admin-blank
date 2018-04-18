@@ -4,7 +4,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+// const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const DEVELOPMENT_MODE = 'development';
 const PRODUCTION_MODE = 'production';
@@ -23,12 +23,12 @@ const plugins = [
   //   minChunks: 2,
   // }),
   new webpack.NoEmitOnErrorsPlugin(),
-  new CopyWebpackPlugin([
-    {
-      from: path.join(__dirname, '/src/favicons'),
-      to: path.join(__dirname, '/dist/assets/favicons'),
-    },
-  ]),
+  // new CopyWebpackPlugin([
+  //   {
+  //     from: path.join(__dirname, '/src/favicons'),
+  //     to: path.join(__dirname, '/dist/assets/favicons'),
+  //   },
+  // ]),
   new ExtractTextWebpackPlugin('styles.css'),
   new HtmlWebpackPlugin({
     hash: true,

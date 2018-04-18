@@ -7,6 +7,7 @@ import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Link } from 'react-router-dom';
 import { USER_STATUSES } from '../../constants';
+import { ContentSpinner } from '../../../core';
 import './style.scss';
 
 export default class UserEditor extends Component {
@@ -15,7 +16,8 @@ export default class UserEditor extends Component {
     if (id) onUserFetch(id);
   }
   render() {
-    const { id, handleSubmit } = this.props;
+    const { id, handleSubmit, isLoading } = this.props;
+    if (isLoading) return <ContentSpinner />;
     return (
       <Paper>
         <form className="profile__settings-form" onSubmit={handleSubmit}>
