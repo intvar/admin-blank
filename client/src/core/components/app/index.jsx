@@ -12,9 +12,9 @@ import history from '../../utils';
 import Notification from '../../containers/notification';
 import Dialog from '../../containers/dialog';
 import PrivateRoute from './private_route';
-import SignIn from './../../../user/components/sign_in_form';
-import RecoveryPassword from './../../../user/components/recover_password_form';
-import SetPassword from './../../../user/components/set_password_form';
+import SignIn from '../../../auth/sign_in_form';
+import RecoveryPassword from '../../../auth/recover_password_form';
+import SetPassword from '../../../auth/set_password_form';
 
 export default class App extends React.Component {
   componentDidMount() {

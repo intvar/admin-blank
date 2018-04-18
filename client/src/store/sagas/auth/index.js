@@ -3,38 +3,43 @@ import axios from 'axios';
 import urlJoin from 'url-join';
 import history from '../../../core/utils';
 import { API_URL } from '../../../core/constants';
+import { openNotification } from '../notification';
 import {
-  SIGN_IN,
-  signInStart,
-  signInSuccess,
-  signInError,
-  SIGN_OUT,
-  signOutStart,
-  signOutSuccess,
-  signOutError,
+  SIGN_IN_START,
+  SIGN_IN_SUCCESS,
+  SIGN_IN_ERROR,
+  SIGN_OUT_START,
+  SIGN_OUT_SUCCESS,
+  SIGN_OUT_ERROR,
 } from '../../ducks/ui/user';
+
+export const SIGN_IN = 'auth/SIGN_IN';
+export const SIGN_OUT = 'auth/SIGN_OUT';
 
 export function* signIn({ email, password }) {
   const url = urlJoin(API_URL, '/actions/login');
   try {
-    yield put(signInStart());
+    yield put({ type: SIGN_IN_START });
     const res = yield call(axios.put, url, { email, password });
-    yield put(signInSuccess(res.data));
+    yield put({ type: SIGN_IN_SUCCESS, user: res.data });
     history.push('/');
   } catch (err) {
-    yield put(signInError(err.response.data.error));
+    yield put({ type: SIGN_IN_ERROR, error: err.response.data.error });
   }
 }
 
 export function* signOut() {
   const url = urlJoin(API_URL, '/actions/logout');
   try {
-    yield put(signOutStart());
+    yield put({ type: SIGN_OUT_START });
     yield call(axios.put, url);
-    yield put(signOutSuccess());
+    yield put({ type: SIGN_OUT_SUCCESS });
     history.push('/signin');
   } catch (err) {
-    yield put(signOutError(err.response.data.error));
+    yield put({ type: SIGN_OUT_ERROR });
+    if (err && err.response && err.response.data) {
+      yield call(openNotification, { message: err.response.data.error });
+    }
   }
 }
 
@@ -43,26 +48,6 @@ export default [
   takeEvery(SIGN_IN, signIn),
   takeEvery(SIGN_OUT, signOut),
 ];
-
-// export function signUp({ first_name, last_name, email }) {
-//   return (dispatch, getState, fetch) => {
-//     dispatch(loadStart());
-
-//     fetch(urlJoin(API_URL, '/users'), {
-//       method: 'POST',
-//       body: JSON.stringify({ first_name, last_name, email }),
-//     })
-//       .then(() => {
-//         dispatch(loadEnd());
-//         dispatch(openNotification({
-//           message: REGISTRATION_MESSAGE,
-//         }));
-//       })
-//       .catch(() => {
-//         dispatch(loadEnd());
-//       });
-//   };
-// }
 
 // export function recoverPassword({ email }) {
 //   return (dispatch, getState, fetch) => {

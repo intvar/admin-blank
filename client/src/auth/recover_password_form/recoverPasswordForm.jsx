@@ -4,7 +4,7 @@ import Paper from 'material-ui/Paper';
 import { Field } from 'redux-form';
 import { TextField } from 'redux-form-material-ui';
 import RaisedButton from 'material-ui/RaisedButton';
-import { onLinkClick } from '../../../core/utils';
+import { onLinkClick } from '../../core/utils';
 
 const RecoverPasswordForm = ({ handleSubmit, isLoading }) => (
   <div className="account-page">

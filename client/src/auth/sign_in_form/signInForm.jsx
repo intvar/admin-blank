@@ -8,8 +8,7 @@ import FlatButton from 'material-ui/FlatButton';
 import ActionRestoreIcon from 'material-ui/svg-icons/action/lock';
 import CircularProgress from 'material-ui/CircularProgress';
 import PropTypes from 'prop-types';
-import { onLinkClick } from '../../../core/utils';
-
+import { Link } from 'react-router-dom';
 
 const checkboxStyles = {
   width: '200px',
@@ -37,7 +36,12 @@ const SignInForm = ({ handleSubmit, isLoading, errorText }) => (
         />
         <div className="account-form__field account-form__field--space-between">
           <Checkbox label="Remember me" style={checkboxStyles} disabled />
-          <FlatButton label="Forgot pwd?" labelPosition="after" icon={<ActionRestoreIcon />} onClick={onLinkClick('/recover_password')} />
+          <FlatButton
+            label="Forgot pwd?"
+            labelPosition="after"
+            icon={<ActionRestoreIcon />}
+            containerElement={<Link to="recover_password" />}
+          />
         </div>
         <div className="account-form__error"> {errorText} </div>
         {

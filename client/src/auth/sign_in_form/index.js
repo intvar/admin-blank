@@ -2,8 +2,8 @@ import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import { isEmail } from 'validator';
 import SignInForm from './signInForm';
-import { signIn } from '../../../store/ducks/ui/user';
-import userSelector from '../../../store/selectors/userSelector';
+import { SIGN_IN } from '../../store/sagas/auth';
+import userSelector from '../../store/selectors/userSelector';
 
 const validate = ({ email, password }) => {
   const errors = {};
@@ -22,13 +22,17 @@ const validate = ({ email, password }) => {
 const mapStateToProps = (state) => {
   const user = userSelector(state);
   return {
-    errorText: user.error,
+    errorText: user.signInError,
     isLoading: user.isLoading,
   };
 };
 
 const mapDispatchToProps = {
-  onSubmit: signIn,
+  onSubmit: ({ password, email }) => ({
+    type: SIGN_IN,
+    password,
+    email,
+  }),
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({

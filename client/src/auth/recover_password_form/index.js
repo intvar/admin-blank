@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import { isEmail } from 'validator';
 import RecoverPasswordForm from './recoverPasswordForm';
-import { recoverPassword } from '../../../store/ducks/ui/user';
+import { recoverPassword } from '../../store/ducks/ui/user';
 
 const validate = ({ email }) => {
   const errors = {};

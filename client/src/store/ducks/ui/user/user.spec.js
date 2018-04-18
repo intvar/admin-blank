@@ -1,11 +1,11 @@
 import { Map } from 'immutable';
 import reducer, {
-  signInStart,
-  signInSuccess,
-  signInError,
-  signOutStart,
-  signOutSuccess,
-  signOutError,
+  SIGN_IN_START,
+  SIGN_IN_SUCCESS,
+  SIGN_IN_ERROR,
+  SIGN_OUT_START,
+  SIGN_OUT_SUCCESS,
+  SIGN_OUT_ERROR,
 } from './index';
 
 describe('user reducer', () => {
@@ -29,15 +29,15 @@ describe('user reducer', () => {
     };
 
     it('signin start', () => {
-      const currentState = initialState.set('error', 'errorText');
-      const nextState = reducer(currentState, signInStart());
+      const currentState = initialState.set('signInError', 'errorText');
+      const nextState = reducer(currentState, { type: SIGN_IN_START });
       expect(nextState.get('isLoading')).toBeTruthy();
-      expect(nextState.get('error')).toBe(null);
+      expect(nextState.get('signInError')).toBe(null);
     });
 
     it('signin success', () => {
       const currentState = initialState.set('isLoading', true);
-      const nextState = reducer(currentState, signInSuccess(user));
+      const nextState = reducer(currentState, { type: SIGN_IN_SUCCESS, user });
       expect(nextState.get('isLoading')).toBeFalsy();
       expect(nextState.get('isAuthorized')).toBeTruthy();
       expect(nextState.get('personalData').toJS()).toEqual(user);
@@ -45,10 +45,10 @@ describe('user reducer', () => {
 
     it('signin error', () => {
       const currentState = initialState.set('isLoading', true);
-      const nextState = reducer(currentState, signInError('error text'));
+      const nextState = reducer(currentState, { type: SIGN_IN_ERROR, error: 'error text' });
       expect(nextState.get('isLoading')).toBeFalsy();
       expect(nextState.get('isAuthorized')).toBeFalsy();
-      expect(nextState.get('error')).toBe('error text');
+      expect(nextState.get('signInError')).toBe('error text');
     });
   });
   describe('signout', () => {
@@ -64,7 +64,7 @@ describe('user reducer', () => {
       error: null,
     });
     it('signout start', () => {
-      const nextState = reducer(initialState, signOutStart());
+      const nextState = reducer(initialState, { type: SIGN_OUT_START });
       expect(nextState.get('isLoading')).toBeTruthy();
       expect(nextState.get('isAuthorized')).toBeTruthy();
     });
@@ -73,17 +73,16 @@ describe('user reducer', () => {
         isAuthorized: true,
         isLoading: true,
       });
-      const nextState = reducer(currentState, signOutSuccess());
+      const nextState = reducer(currentState, { type: SIGN_OUT_SUCCESS });
       expect(nextState.get('isLoading')).toBeFalsy();
       expect(nextState.get('isAuthorized')).toBeFalsy();
       expect(nextState.get('personalData')).toBe(null);
     });
     it('signout error', () => {
       const currentState = initialState.set('isAuthorized', true);
-      const nextState = reducer(currentState, signOutError('error text'));
+      const nextState = reducer(currentState, { SIGN_OUT_ERROR });
       expect(nextState.get('isLoading')).toBeFalsy();
       expect(nextState.get('isAuthorized')).toBeTruthy();
-      expect(nextState.get('error')).toBe('error text');
     });
   });
 });
