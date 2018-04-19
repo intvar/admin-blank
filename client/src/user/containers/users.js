@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import Users from '../components/users';
 import usersSelector from '../../store/selectors/usersSelector';
-import { RETRIEVE_LIST, DELETE } from '../../store/ducks/data/users';
+import { RETRIEVE_LIST, DELETE } from '../../store/sagas/users';
 import { ASK_QUESTION } from '../../store/sagas/dialog';
 
 const mapStateToProps = (state) => {

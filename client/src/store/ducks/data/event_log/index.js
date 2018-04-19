@@ -2,9 +2,6 @@ import { Map, OrderedMap } from 'immutable';
 import mapKeys from 'lodash/mapKeys';
 
 const limit = 40;
-export const LOAD = '/event_log/LOAD';
-export const RELOAD = '/event_log/RELOAD';
-export const SHOW_DEBUG_INFO = '/event_log/SHOW_DEBUG_INFO';
 export const LOAD_START = '/event_log/LOAD_START';
 export const LOAD_SUCCESS = '/event_log/LOAD_SUCCEESS';
 export const LOAD_DEBUG_INFO_SUCCESS = '/event_log/LOAD_DEBUG_INFO_SUCCESS';

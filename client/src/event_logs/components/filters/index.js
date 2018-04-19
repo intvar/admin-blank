@@ -2,15 +2,15 @@ import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import Filters from './filters';
 import eventCodesSelector from '../../../store/selectors/eventCodesSelector';
-import { load as onLoad } from '../../../store/ducks/data/event_codes';
-import { RELOAD } from '../../../store/ducks/data/event_log';
+import { LOAD } from '../../../store/sagas/event_codes';
+import { RELOAD } from '../../../store/sagas/event_log';
 
 const mapStateToProps = state => ({
   eventCodes: eventCodesSelector(state),
 });
 
 const mapDispatchToProps = {
-  onLoad,
+  onLoad: () => ({ type: LOAD }),
   onChange: () => ({ type: RELOAD }),
 };
 

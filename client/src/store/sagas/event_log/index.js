@@ -3,12 +3,16 @@ import { put, call, select, takeLatest } from 'redux-saga/effects';
 import urlJoin from 'url-join';
 import qs from 'qs';
 import { getPageNumber, getFilters, getSelectedEventLog } from '../../selectors/eventLogSelector';
-import { LOAD, RELOAD, LOAD_SUCCESS, RESET, LOAD_START, LOAD_DEBUG_INFO_SUCCESS, SHOW_DEBUG_INFO, LOAD_ERROR } from '../../ducks/data/event_log';
+import { LOAD_SUCCESS, RESET, LOAD_START, LOAD_DEBUG_INFO_SUCCESS, LOAD_ERROR } from '../../ducks/data/event_log';
 import { SET_CURRENT_ID } from '../../ducks/ui/selectedEventLogId';
 import { API_URL } from '../../../core/constants';
 import { openNotification } from '../notification';
 import { showComponent } from '../dialog';
 import DebugInfoViewer from '../../../event_logs/components/debug_info_viewer';
+
+export const LOAD = '/event_log/LOAD';
+export const RELOAD = '/event_log/RELOAD';
+export const SHOW_DEBUG_INFO = '/event_log/SHOW_DEBUG_INFO';
 
 export function* errorHandler(err) {
   put({ type: LOAD_ERROR });

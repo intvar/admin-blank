@@ -5,19 +5,20 @@ import { stringify } from 'qs';
 import { API_URL } from '../../../core/constants';
 import {
   START,
-  RETRIEVE_LIST,
   RETRIEVE_LIST_SUCCESS,
-  RETRIEVE_ONE,
   RETRIEVE_ONE_SUCCESS,
-  UPDATE,
   UPDATE_SUCCESS,
-  DELETE,
   DELETE_SUCCESS,
   ERROR,
 } from '../../ducks/data/users';
 import { openNotification } from '../notification';
 import { getPageNumber } from '../../selectors/usersSelector';
 import history from '../../../core/utils';
+
+export const RETRIEVE_LIST = '/users/RETRIEVE_LIST';
+export const RETRIEVE_ONE = '/users/RETRIEVE_ONE';
+export const UPDATE = '/users/UPDATE';
+export const DELETE = '/users/DELETE';
 
 const url = urlJoin(API_URL, '/users');
 

@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import pick from 'lodash/pick';
 import UserEditor from '../components/user_editor';
-import { RETRIEVE_ONE, UPDATE } from '../../store/ducks/data/users';
+import { RETRIEVE_ONE, UPDATE } from '../../store/sagas/users';
 import getUsers from '../../store/selectors/usersSelector';
 
 const validate = ({ first_name, last_name }) => {

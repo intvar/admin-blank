@@ -2,9 +2,9 @@ import { put, call } from 'redux-saga/effects';
 import axios from 'axios';
 import { loadEventCodes } from './index';
 import {
-  loadStart,
-  loadFinish,
-  loadError,
+  LOAD_START,
+  LOAD_FINISH,
+  LOAD_ERROR,
 } from '../../ducks/data/event_codes';
 
 describe('event codes sagas', () => {
@@ -22,18 +22,18 @@ describe('event codes sagas', () => {
       },
     ],
   };
-  const err = {
-    response: {
-      data: {
-        error: 'Not Authorized',
-      },
-    },
-  };
+  // const err = {
+  //   response: {
+  //     data: {
+  //       error: 'Not Authorized',
+  //     },
+  //   },
+  // };
   it('load', () => {
     const iterator = loadEventCodes();
-    expect(iterator.next().value).toEqual(put(loadStart()));
+    expect(iterator.next().value).toEqual(put({ type: LOAD_START }));
     expect(iterator.next().value).toEqual(call(axios.get, url));
-    expect(iterator.next(response).value).toEqual(put(loadFinish(event_codes)));
-    expect(iterator.throw().value).toEqual(put(loadError()));
+    expect(iterator.next(response).value).toEqual(put({ type: LOAD_FINISH, event_codes }));
+    expect(iterator.throw().value).toEqual(put({ type: LOAD_ERROR }));
   });
 });

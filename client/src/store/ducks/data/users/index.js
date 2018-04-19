@@ -10,11 +10,6 @@ export const initialState = Map({
   isLoading: false,
 });
 
-export const RETRIEVE_LIST = '/users/RETRIEVE_LIST';
-export const RETRIEVE_ONE = '/users/RETRIEVE_ONE';
-export const UPDATE = '/users/UPDATE';
-export const DELETE = '/users/DELETE';
-
 export const START = '/users/START';
 export const RETRIEVE_LIST_SUCCESS = '/users/RETRIEVE_LIST_SUCCESS';
 export const RETRIEVE_ONE_SUCCESS = '/users/RETRIEVE_ONE_SUCCESS';

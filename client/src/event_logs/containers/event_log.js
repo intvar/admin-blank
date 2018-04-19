@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import EventLog from '../components/event_log';
-import { LOAD } from '../../store/ducks/data/event_log';
+import { LOAD } from '../../store/sagas/event_log';
 import eventLogSelector from '../../store/selectors/eventLogSelector';
 
 const mapStateToProps = (state) => {
