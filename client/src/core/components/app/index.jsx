@@ -13,8 +13,8 @@ import Notification from '../../containers/notification';
 import Dialog from '../../containers/dialog';
 import PrivateRoute from './private_route';
 import SignIn from '../../../auth/sign_in_form';
-import RecoveryPassword from '../../../auth/recover_password_form';
-import SetPassword from '../../../auth/set_password_form';
+import ForgotPassword from '../../../auth/forgot_password_form';
+import RecoveryPasswordForm from '../../../auth/recovery_password_form';
 
 export default class App extends React.Component {
   componentDidMount() {
@@ -40,8 +40,8 @@ export default class App extends React.Component {
             <div className="content__content-wrap">
               <Switch>
                 <Route path="/signin" component={SignIn} />
-                <Route path="/recover_password" component={RecoveryPassword} />
-                <Route path="/set_password/:verify_pass_code" component={SetPassword} />
+                <Route path="/forgot_password" component={ForgotPassword} />
+                <Route path="/recovery_password/:verify_pass_code" component={RecoveryPasswordForm} />
                 <PrivateRoute path="/event-log/" component={EventLog} />
                 <PrivateRoute path="/users/:action/:id" component={UserEditor} />
                 <PrivateRoute path="/users/:action/" component={UserEditor} />

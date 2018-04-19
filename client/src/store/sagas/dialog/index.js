@@ -18,7 +18,7 @@ export function* showDialog({
   });
 }
 
-export function* showInfo({
+export function* showComponent({
   title,
   component,
   componentProperties,
@@ -30,6 +30,19 @@ export function* showInfo({
     actions: [React.createElement(HideButton, { label: 'hide' })],
   };
   yield call(showDialog, { dialogProperties, component, componentProperties });
+}
+
+export function* showInfo({
+  title,
+  message,
+}) {
+  const HideButton = buttonCreater({ type: HIDE });
+  const dialogProperties = {
+    title,
+    actions: [React.createElement(HideButton, { label: 'hide' })],
+  };
+  const component = () => React.createElement('div', null, message);
+  yield call(showDialog, { dialogProperties, component });
 }
 
 export function* askQuestions({

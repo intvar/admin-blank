@@ -6,10 +6,10 @@ import { TextField } from 'redux-form-material-ui';
 import RaisedButton from 'material-ui/RaisedButton';
 import { onLinkClick } from '../../core/utils';
 
-const RecoverPasswordForm = ({ handleSubmit, isLoading }) => (
+const ForgotPasswordForm = ({ handleSubmit, isLoading }) => (
   <div className="account-page">
     <Paper className="account-form recover-password-form" zDepth={1} >
-      <h1 className="account-form__header">Recover password</h1>
+      <h1 className="account-form__header">Forgot password</h1>
       <form onSubmit={handleSubmit}>
         <Field
           name="email"
@@ -33,9 +33,9 @@ const RecoverPasswordForm = ({ handleSubmit, isLoading }) => (
   </div>
 );
 
-RecoverPasswordForm.propTypes = {
+ForgotPasswordForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
 };
 
-export default RecoverPasswordForm;
+export default ForgotPasswordForm;

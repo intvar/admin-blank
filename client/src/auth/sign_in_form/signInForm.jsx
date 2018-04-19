@@ -14,7 +14,7 @@ const checkboxStyles = {
   width: '200px',
 };
 
-const SignInForm = ({ handleSubmit, isLoading, errorText }) => (
+const SignInForm = ({ handleSubmit, isLoading }) => (
   <div className="account-page">
     <Paper className="account-form" zDepth={1} >
       <h1 className="account-form__header">Sign in</h1>
@@ -40,10 +40,9 @@ const SignInForm = ({ handleSubmit, isLoading, errorText }) => (
             label="Forgot pwd?"
             labelPosition="after"
             icon={<ActionRestoreIcon />}
-            containerElement={<Link to="recover_password" />}
+            containerElement={<Link to="forgot_password" />}
           />
         </div>
-        <div className="account-form__error"> {errorText} </div>
         {
         isLoading ?
           <CircularProgress className="account-form__loader" /> :
@@ -63,11 +62,6 @@ const SignInForm = ({ handleSubmit, isLoading, errorText }) => (
 SignInForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  errorText: PropTypes.string,
-};
-
-SignInForm.defaultProps = {
-  errorText: null,
 };
 
 export default SignInForm;

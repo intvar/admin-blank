@@ -1,11 +1,11 @@
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import { isEmail } from 'validator';
-import SignInForm from './signInForm';
-import { SIGN_IN } from '../../store/sagas/auth';
+import FrogotPasswordForm from './forgotPasswordForm';
+import { FORGOT_PASSWORD } from '../../store/sagas/auth';
 import userSelector from '../../store/selectors/userSelector';
 
-const validate = ({ email, password }) => {
+const validate = ({ email }) => {
   const errors = {};
   if (!email) {
     errors.email = 'Required';
@@ -13,23 +13,16 @@ const validate = ({ email, password }) => {
   if (email && !isEmail(email)) {
     errors.email = 'It is not valid email';
   }
-  if (!password) {
-    errors.password = 'Required';
-  }
   return errors;
 };
 
 const mapStateToProps = state => ({ isLoading: userSelector(state).isLoading });
 
 const mapDispatchToProps = {
-  onSubmit: ({ password, email }) => ({
-    type: SIGN_IN,
-    password,
-    email,
-  }),
+  onSubmit: ({ email }) => ({ type: FORGOT_PASSWORD, email }),
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
-  form: 'sign_in',
+  form: 'forgot_password',
   validate,
-})(SignInForm));
+})(FrogotPasswordForm));

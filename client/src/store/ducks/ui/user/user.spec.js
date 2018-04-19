@@ -1,11 +1,9 @@
 import { Map } from 'immutable';
 import reducer, {
-  SIGN_IN_START,
+  START,
   SIGN_IN_SUCCESS,
-  SIGN_IN_ERROR,
-  SIGN_OUT_START,
   SIGN_OUT_SUCCESS,
-  SIGN_OUT_ERROR,
+  ERROR,
 } from './index';
 
 describe('user reducer', () => {
@@ -28,11 +26,10 @@ describe('user reducer', () => {
       last_name: 'Mouse',
     };
 
-    it('signin start', () => {
+    it('start', () => {
       const currentState = initialState.set('signInError', 'errorText');
-      const nextState = reducer(currentState, { type: SIGN_IN_START });
+      const nextState = reducer(currentState, { type: START });
       expect(nextState.get('isLoading')).toBeTruthy();
-      expect(nextState.get('signInError')).toBe(null);
     });
 
     it('signin success', () => {
@@ -43,12 +40,11 @@ describe('user reducer', () => {
       expect(nextState.get('personalData').toJS()).toEqual(user);
     });
 
-    it('signin error', () => {
+    it('error', () => {
       const currentState = initialState.set('isLoading', true);
-      const nextState = reducer(currentState, { type: SIGN_IN_ERROR, error: 'error text' });
+      const nextState = reducer(currentState, { type: ERROR });
       expect(nextState.get('isLoading')).toBeFalsy();
       expect(nextState.get('isAuthorized')).toBeFalsy();
-      expect(nextState.get('signInError')).toBe('error text');
     });
   });
   describe('signout', () => {
@@ -63,11 +59,6 @@ describe('user reducer', () => {
       isLoading: false,
       error: null,
     });
-    it('signout start', () => {
-      const nextState = reducer(initialState, { type: SIGN_OUT_START });
-      expect(nextState.get('isLoading')).toBeTruthy();
-      expect(nextState.get('isAuthorized')).toBeTruthy();
-    });
     it('signout success', () => {
       const currentState = initialState.merge({
         isAuthorized: true,
@@ -77,12 +68,6 @@ describe('user reducer', () => {
       expect(nextState.get('isLoading')).toBeFalsy();
       expect(nextState.get('isAuthorized')).toBeFalsy();
       expect(nextState.get('personalData')).toBe(null);
-    });
-    it('signout error', () => {
-      const currentState = initialState.set('isAuthorized', true);
-      const nextState = reducer(currentState, { SIGN_OUT_ERROR });
-      expect(nextState.get('isLoading')).toBeFalsy();
-      expect(nextState.get('isAuthorized')).toBeTruthy();
     });
   });
 });
