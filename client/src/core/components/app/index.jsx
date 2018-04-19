@@ -4,7 +4,7 @@ import { Router } from 'react-router';
 import { Route, Switch } from 'react-router-dom';
 import LinearProgress from 'material-ui/LinearProgress';
 import Menu from '../menu';
-import Header from '../header/index';
+import Header from '../header';
 import EventLog from '../../../event_logs/containers/event_log';
 import { Users, UserEditor } from '../../../user/';
 import { Admins, AdminEditor } from '../../../admins';
@@ -22,7 +22,7 @@ export default class App extends React.Component {
   }
 
   render() {
-    const { isAuthorized, isLoading, userPermission } = this.props;
+    const { isAuthorized, isLoading } = this.props;
 
     return (
       <Router history={history}>
@@ -30,13 +30,9 @@ export default class App extends React.Component {
           <div className="content__loader-wrapper">
             { isLoading && <LinearProgress mode="indeterminate" /> }
           </div>
-          {isAuthorized && <Header onSignOutClick={this.props.onSignOutClick} /> }
+          {isAuthorized && <Header /> }
           <div className="content__wrapper">
-            {isAuthorized &&
-              <Menu
-                onSignOutClick={this.props.onSignOutClick}
-                userPermission={userPermission}
-              /> }
+            {isAuthorized && <Menu /> }
             <div className="content__content-wrap">
               <Switch>
                 <Route path="/signin" component={SignIn} />
@@ -60,16 +56,7 @@ export default class App extends React.Component {
   }
 }
 
-App.defaultProps = {
-  userPermission: null,
-};
-
 App.propTypes = {
   isAuthorized: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  onSignOutClick: PropTypes.func.isRequired,
-  userPermission: PropTypes.shape({
-    operator: PropTypes.bool.isRequired,
-    security_admin: PropTypes.bool.isRequired,
-  }),
 };

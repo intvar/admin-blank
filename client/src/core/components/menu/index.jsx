@@ -3,35 +3,58 @@ import Paper from 'material-ui/Paper';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import { Link } from 'react-router-dom';
-
+import { connect } from 'react-redux';
 import BugReport from 'material-ui/svg-icons/action/bug-report';
 import Person from 'material-ui/svg-icons/social/person';
 import Admin from 'material-ui/svg-icons/action/supervisor-account';
+import LogOut from 'material-ui/svg-icons/action/exit-to-app';
+import Divider from 'material-ui/Divider';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { SIGN_OUT } from '../../../store/sagas/auth';
+
 
 import './style.scss';
 
-function headMenu() {
-  return (
-    <Paper className="menu">
-      <Menu className="menu__self">
-        <MenuItem
-          primaryText="Admins"
-          leftIcon={<Admin />}
-          containerElement={<Link to="/admins" />}
-        />
-        <MenuItem
-          primaryText="Users"
-          leftIcon={<Person />}
-          containerElement={<Link to="/users" />}
-        />
-        <MenuItem
-          primaryText="Event-Log"
-          leftIcon={<BugReport />}
-          containerElement={<Link to="/event-log" />}
-        />
-      </Menu>
-    </Paper>
-  );
-}
+const HeadMenu = ({ isShow, handlerLogOut }) => (
+  <Paper className={classNames('menu', { 'menu--hide': !isShow })} >
+    <Menu className="menu__self">
+      <MenuItem
+        primaryText="Admins"
+        leftIcon={<Admin />}
+        containerElement={<Link to="/admins" />}
+      />
+      <MenuItem
+        primaryText="Users"
+        leftIcon={<Person />}
+        containerElement={<Link to="/users" />}
+      />
+      <MenuItem
+        primaryText="Event-Log"
+        leftIcon={<BugReport />}
+        containerElement={<Link to="/event-log" />}
+      />
+      <Divider />
+      <MenuItem
+        primaryText="Log Out"
+        leftIcon={<LogOut />}
+        onClick={handlerLogOut}
+      />
+    </Menu>
+  </Paper>
+);
 
-export default headMenu;
+HeadMenu.propTypes = {
+  isShow: PropTypes.bool.isRequired,
+  handlerLogOut: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = state => ({
+  isShow: state.ui.leftMenu,
+});
+
+const mapDispatchToProps = {
+  handlerLogOut: () => ({ type: SIGN_OUT }),
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(HeadMenu);

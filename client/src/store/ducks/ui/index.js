@@ -5,6 +5,7 @@ import dialog from './dialog';
 import users_filters from './usersFilters';
 import user from './user';
 import selectedEventLogId from './selectedEventLogId';
+import leftMenu from './leftMenu';
 
 const ui = combineReducers({
   notification,
@@ -12,6 +13,7 @@ const ui = combineReducers({
   dialog,
   users_filters,
   user,
+  leftMenu,
   selectedEventLogId,
 });
 

@@ -1,7 +1,5 @@
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import App from '../components/app';
-import { SIGN_OUT } from '../../store/sagas/auth';
 import userSelector from '../../store/selectors/userSelector';
 
 const mapStateToProps = (state) => {
@@ -12,10 +10,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = dispatch => bindActionCreators({
-  onSignOutClick: () => ({ type: SIGN_OUT }),
-}, dispatch);
-
-const AppContainer = connect(mapStateToProps, mapDispatchToProps)(App);
+const AppContainer = connect(mapStateToProps)(App);
 
 export default AppContainer;

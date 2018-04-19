@@ -1,10 +1,15 @@
 @import '../../scss/constants.scss';
 
 .menu {
-  margin-top: $paper-margin;
-  min-height: 100vh;
+  min-height: calc(100vh - 70px);
+  width: 220px;
+  overflow: hidden;
 }
 
 .menu__self {
   width: 150px;
+}
+
+.menu--hide {
+  width: 0;
 }

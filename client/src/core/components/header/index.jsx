@@ -1,44 +1,25 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import FlatButton from 'material-ui/FlatButton';
+import AppBar from 'material-ui/AppBar';
+import { connect } from 'react-redux';
+import { TOGGLE } from '../../../store/ducks/ui/leftMenu';
 import './style.scss';
-// import logo from './images/logo.png';
-import { PRIMARY_COLOR } from '../../constants';
 
-const MenuItemStyles = {
-  height: '100%',
-};
 
-const MenuItem = props => (
-  <FlatButton
-    label={props.label}
-    hoverColor={PRIMARY_COLOR}
-    button-style={MenuItemStyles}
+const Header = ({ onLeftIconButtonClick }) => (
+  <AppBar
+    title="Title"
+    onLeftIconButtonClick={onLeftIconButtonClick}
   />
 );
 
-MenuItem.propTypes = {
-  label: PropTypes.string.isRequired,
-};
-
-class Header extends Component {
-  render(){
-    return(
-      <div className="header">
-        {/* <img
-          className="header__logo"
-          src={logo}
-          alt=""
-        /> */}
-        <FlatButton label="Log Out" onClick={this.props.onSignOutClick} />
-      </div>
-    )
-  }
-} 
-
 
 Header.propTypes = {
-  onSignOutClick: PropTypes.func.isRequired,
-}
+  onLeftIconButtonClick: PropTypes.func.isRequired,
+};
 
-export default Header;
+const mapDispatchToProps = {
+  onLeftIconButtonClick: () => ({ type: TOGGLE }),
+};
+
+export default connect(null, mapDispatchToProps)(Header);
