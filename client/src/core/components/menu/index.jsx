@@ -8,6 +8,7 @@ import BugReport from 'material-ui/svg-icons/action/bug-report';
 import Person from 'material-ui/svg-icons/social/person';
 import Admin from 'material-ui/svg-icons/action/supervisor-account';
 import LogOut from 'material-ui/svg-icons/action/exit-to-app';
+import ChangePassword from 'material-ui/svg-icons/communication/vpn-key';
 import Divider from 'material-ui/Divider';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -18,7 +19,7 @@ import './style.scss';
 
 const HeadMenu = ({ isShow, handlerLogOut }) => (
   <Paper className={classNames('menu', { 'menu--hide': !isShow })} >
-    <Menu className="menu__self">
+    <Menu>
       <MenuItem
         primaryText="Admins"
         leftIcon={<Admin />}
@@ -35,6 +36,11 @@ const HeadMenu = ({ isShow, handlerLogOut }) => (
         containerElement={<Link to="/event-log" />}
       />
       <Divider />
+      <MenuItem
+        primaryText="Change password"
+        leftIcon={<ChangePassword />}
+        containerElement={<Link to="/change_password" />}
+      />
       <MenuItem
         primaryText="Log Out"
         leftIcon={<LogOut />}

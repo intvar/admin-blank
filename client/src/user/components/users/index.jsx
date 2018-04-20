@@ -22,9 +22,7 @@ const listItemStyle = {
 const linkStyle = {
   textDecoration: 'none',
 };
-/**
- * @todo Add filters
- */
+
 export default class Users extends React.Component {
   static getSecondaryText(user) {
     return `${USER_STATUSES[user.status]}.`;

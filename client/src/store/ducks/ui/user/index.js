@@ -4,7 +4,7 @@ export const START = 'user/START';
 export const SIGN_IN_SUCCESS = 'user/SIGN_IN_SUCCESS';
 export const SIGN_OUT_SUCCESS = 'user/SIGN_OUT_SUCCESS';
 export const PASSWORD_RESTORED = 'user/PASSWORD_RESTORED';
-export const FORGOT_PASSWORD_EMAIL_SEND = 'user/FORGOT_PASSWORD_EMAIL_SEND';
+export const FINISH = 'user/FINISH';
 export const ERROR = 'user/ERROR';
 
 
@@ -22,7 +22,7 @@ export default function user(state = initialUserState, action) {
   switch (action.type) {
     case START:
       return state.set('isLoading', true);
-    case FORGOT_PASSWORD_EMAIL_SEND:
+    case FINISH:
     case ERROR:
       return state.set('isLoading', false);
     case SIGN_IN_SUCCESS:

@@ -15,6 +15,7 @@ import PrivateRoute from './private_route';
 import SignIn from '../../../auth/sign_in_form';
 import ForgotPassword from '../../../auth/forgot_password_form';
 import RecoveryPasswordForm from '../../../auth/recovery_password_form';
+import ChangePasswordForm from '../../../auth/change_password_form';
 
 export default class App extends React.Component {
   componentDidMount() {
@@ -38,6 +39,7 @@ export default class App extends React.Component {
                 <Route path="/signin" component={SignIn} />
                 <Route path="/forgot_password" component={ForgotPassword} />
                 <Route path="/recovery_password/:verify_pass_code" component={RecoveryPasswordForm} />
+                <PrivateRoute path="/change_password" component={ChangePasswordForm} />
                 <PrivateRoute path="/event-log/" component={EventLog} />
                 <PrivateRoute path="/users/:id" component={UserEditor} />
                 <PrivateRoute path="/users" component={Users} />

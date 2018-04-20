@@ -2,14 +2,12 @@
 
 .menu {
   min-height: calc(100vh - 70px);
+  min-width: 220px;
   width: 220px;
   overflow: hidden;
 }
 
-.menu__self {
-  width: 150px;
-}
-
 .menu--hide {
-  width: 0;
+  min-width: 0;
+  width:0;
 }
