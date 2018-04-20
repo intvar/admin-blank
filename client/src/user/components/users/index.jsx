@@ -58,7 +58,7 @@ export default class Users extends React.Component {
       <List className="users" style={listStyles}>
         {
           users.map(user => (
-            <Link to={`/users/edit/${user.id}`} key={String(user.id)} style={linkStyle}>
+            <Link to={`/users/${user.id}`} key={user.id} style={linkStyle}>
               <Paper className="users__item">
                 <ListItem
                   leftAvatar={<Avatar src={user.photo} icon={<UserIcon />} />}
@@ -84,7 +84,7 @@ export default class Users extends React.Component {
         onLoadMore={onDataRequest}
         hasMore={hasMoreUsers}
       >
-        {/* <UsersFilters /> */}
+        <UsersFilters />
         {hasMoreUsers || users.length ? renderUsers() : <SearchNotFound />}
         { isLoading ? <ContentSpinner /> : null }
       </InfiniteScroll>

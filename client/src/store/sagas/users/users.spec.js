@@ -10,7 +10,7 @@ import {
   ERROR,
 } from '../../ducks/data/users';
 import { openNotification } from '../notification';
-import { getPageNumber } from '../../selectors/usersSelector';
+import { getPageNumber, getFilters } from '../../selectors/usersSelector';
 import history from '../../../core/utils';
 
 const users = [{
@@ -48,7 +48,9 @@ describe('users sagas', () => {
     const iterator = retrieveList();
     expect(iterator.next().value).toEqual(put({ type: START }));
     expect(iterator.next().value).toEqual(select(getPageNumber));
-    expect(iterator.next(1).value).toEqual(call(axios.get, '/api/v1/users?page=1'));
+    expect(iterator.next(1).value).toEqual(select(getFilters));
+    expect(iterator.next({ search_criterion: 'test', status: 1 }).value)
+      .toEqual(call(axios.get, '/api/v1/users?page=1&search_criterion=test&status=1'));
     expect(iterator.next({ data: users }).value)
       .toEqual(put({ type: RETRIEVE_LIST_SUCCESS, users }));
     expect(iterator.throw(err).value).toEqual(call(errorHandler, err));

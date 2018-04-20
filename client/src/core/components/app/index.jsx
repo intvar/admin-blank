@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Router } from 'react-router';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import LinearProgress from 'material-ui/LinearProgress';
 import Menu from '../menu';
 import Header from '../header';
@@ -39,12 +39,12 @@ export default class App extends React.Component {
                 <Route path="/forgot_password" component={ForgotPassword} />
                 <Route path="/recovery_password/:verify_pass_code" component={RecoveryPasswordForm} />
                 <PrivateRoute path="/event-log/" component={EventLog} />
-                <PrivateRoute path="/users/:action/:id" component={UserEditor} />
-                <PrivateRoute path="/users/:action/" component={UserEditor} />
+                <PrivateRoute path="/users/:id" component={UserEditor} />
                 <PrivateRoute path="/users" component={Users} />
                 <PrivateRoute path="/admins/add" component={AdminEditor} />
                 <PrivateRoute path="/admins/:id" component={AdminEditor} />
                 <PrivateRoute path="/admins" component={Admins} />
+                <Redirect to="users" />
               </Switch>
             </div>
           </div>

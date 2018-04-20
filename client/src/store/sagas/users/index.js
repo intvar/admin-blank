@@ -10,15 +10,17 @@ import {
   UPDATE_SUCCESS,
   DELETE_SUCCESS,
   ERROR,
+  RESET,
 } from '../../ducks/data/users';
 import { openNotification } from '../notification';
-import { getPageNumber } from '../../selectors/usersSelector';
+import { getPageNumber, getFilters } from '../../selectors/usersSelector';
 import history from '../../../core/utils';
 
 export const RETRIEVE_LIST = '/users/RETRIEVE_LIST';
 export const RETRIEVE_ONE = '/users/RETRIEVE_ONE';
 export const UPDATE = '/users/UPDATE';
 export const DELETE = '/users/DELETE';
+export const RELOAD = '/users/RELOAD';
 
 const url = urlJoin(API_URL, '/users');
 
@@ -33,7 +35,8 @@ export function* retrieveList() {
   try {
     yield put({ type: START });
     const page = yield select(getPageNumber);
-    const queryString = stringify({ page });
+    const filters = yield select(getFilters);
+    const queryString = stringify({ page, ...filters }, { skipNulls: true });
     const res = yield call(axios.get, `${url}?${queryString}`);
     yield put({ type: RETRIEVE_LIST_SUCCESS, users: res.data });
   } catch (err) {
@@ -73,9 +76,16 @@ export function* deleteUser({ userId }) {
   }
 }
 
+export function* reload() {
+  yield put({ type: RESET });
+  yield call(retrieveList);
+}
+
+
 export default [
   takeLatest(RETRIEVE_LIST, retrieveList),
   takeLatest(RETRIEVE_ONE, retrieveOne),
   takeLatest(UPDATE, update),
   takeLatest(DELETE, deleteUser),
+  takeLatest(RELOAD, reload),
 ];

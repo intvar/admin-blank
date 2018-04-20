@@ -11,3 +11,8 @@ export const getList = createSelector(
   state => state.data.users,
   users => users.get('list'),
 );
+
+export const getFilters = createSelector(
+  state => state.form.usersFilters,
+  usersFilters => usersFilters.values,
+);

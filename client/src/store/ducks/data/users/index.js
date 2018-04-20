@@ -16,6 +16,7 @@ export const RETRIEVE_ONE_SUCCESS = '/users/RETRIEVE_ONE_SUCCESS';
 export const UPDATE_SUCCESS = '/users/UPDATE_SUCCESS';
 export const DELETE_SUCCESS = '/users/DELETE_SUCCESS';
 export const ERROR = '/users/ERROR';
+export const RESET = '/users/RESET';
 
 export default (
   state = initialState,
@@ -48,6 +49,8 @@ export default (
       return state.deleteIn(['list', userIdStr]).set('isLoading', false);
     case ERROR:
       return state.set('isLoading', false);
+    case RESET:
+      return initialState;
     default:
       return state;
   }

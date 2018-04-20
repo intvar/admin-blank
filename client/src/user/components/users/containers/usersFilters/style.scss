@@ -1,0 +1,18 @@
+$indent: 20px;
+
+.users-filter {
+  padding: $indent;
+  margin-bottom: $indent;
+}
+
+.users-filter__block {
+  display: flex;
+}
+
+.users-filter__search_criterion {
+  margin-left: $indent;
+}
+
+.users-filter__reset {
+  margin-top:$indent;
+}

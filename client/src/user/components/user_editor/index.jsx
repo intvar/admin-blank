@@ -99,7 +99,7 @@ export default class UserEditor extends Component {
             </Field>
           </div>
           <RaisedButton type="submit" label="Save" primary className="profile__settings-form-actions" />
-          <RaisedButton label="Cancel" containerElement={<Link to="/users" />} />
+          <RaisedButton label="Cancel" containerElement={<Link to="/users" />} className="profile__cancel-btn" />
         </form>
       </Paper>
     );
