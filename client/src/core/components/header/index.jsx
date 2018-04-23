@@ -5,21 +5,22 @@ import { connect } from 'react-redux';
 import { TOGGLE } from '../../../store/ducks/ui/leftMenu';
 import './style.scss';
 
-
-const Header = ({ onLeftIconButtonClick }) => (
+const Header = ({ title, onLeftIconButtonClick }) => (
   <AppBar
-    title="Title"
+    title={title}
     onLeftIconButtonClick={onLeftIconButtonClick}
   />
 );
 
-
 Header.propTypes = {
+  title: PropTypes.string.isRequired,
   onLeftIconButtonClick: PropTypes.func.isRequired,
 };
+
+const mapStateToProps = state => ({ title: state.ui.title });
 
 const mapDispatchToProps = {
   onLeftIconButtonClick: () => ({ type: TOGGLE }),
 };
 
-export default connect(null, mapDispatchToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

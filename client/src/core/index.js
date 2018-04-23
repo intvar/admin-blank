@@ -1,3 +1,5 @@
+import './urlChangeHandler';
+
 export { default as ContentAddButton } from './components/content_add_button';
 export { default as Notification } from './containers/notification';
 export { default as SearchNotFound } from './components/search_not_found';
