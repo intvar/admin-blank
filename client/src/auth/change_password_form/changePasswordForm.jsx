@@ -6,7 +6,7 @@ import { TextField } from 'redux-form-material-ui';
 import PropTypes from 'prop-types';
 
 const ChangePasswordForm = ({ handleSubmit }) => (
-  <Paper className="account-form" zDepth={1}>
+  <Paper className="account-form" zDepth={1} style={{ margin: '0 auto' }}>
     <form onSubmit={handleSubmit}>
       <Field
         name="old_password"

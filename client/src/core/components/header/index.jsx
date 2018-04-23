@@ -13,8 +13,12 @@ const Header = ({ title, onLeftIconButtonClick }) => (
 );
 
 Header.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   onLeftIconButtonClick: PropTypes.func.isRequired,
+};
+
+Header.defaultProps = {
+  title: null,
 };
 
 const mapStateToProps = state => ({ title: state.ui.title });
