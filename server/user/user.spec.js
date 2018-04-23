@@ -4,8 +4,8 @@ const { users } = require('../test/dataForTests');
 const User = require('./model');
 const { createFromArray, destroyAll } = require('../lib/util');
 const sequelize = require('../lib/sequelize');
-
 const {
+  USER_STATUS_REMOVED,
   USER_STATUS_WAITING_VERIFYING,
 } = require('../constants');
 
@@ -183,7 +183,7 @@ describe('users rests', () => {
         .delete(`/api/v1/users/${userId}`)
         .expect(204);
       const user = await User.findById(userId);
-      expect(user).toBeNull();
+      expect(user.status).toBe(USER_STATUS_REMOVED);
     });
 
     it('should return http status 404', () =>

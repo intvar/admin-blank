@@ -58,7 +58,7 @@ exports.forgotPassword = async (req, res) => {
   await Admin.update({
     verify_pass_code, verify_pass_deadline,
   }, { where: { email } });
-  sendForgotPasswordEmail(admin);
+  sendForgotPasswordEmail({ ...admin.dataValues, verify_pass_code });
   saveEventLog(req, false, 'users forgot password');
   res.status(204).send();
 };
@@ -84,11 +84,14 @@ exports.recoveryPassword = async (req, res) => {
     password: hashedPassword,
     verify_pass_code: null,
     verify_pass_deadline: null,
-    status: ADMIN_STATUS_ACTIVE,
+    login_date: new Date(),
   }, { where: { id: admin.id } });
 
-  saveEventLog(req, false, 'password recovery');
-  return res.status(200).send();
+  req.logIn(admin, (err) => {
+    if (err) throw err;
+    saveEventLog(req, false, 'password recovery');
+    return res.status(200).send();
+  });
 };
 
 exports.changePassword = async (req, res) => {

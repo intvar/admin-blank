@@ -9,6 +9,7 @@ const {
 const { pick, isEmpty } = require('lodash');
 const { userValidate } = require('./validate');
 const FV = require('../lib/FieldValidation');
+const { USER_STATUS_REMOVED } = require('../constants');
 
 const getUserById = async (userId) => {
   const attributes = {
@@ -32,6 +33,8 @@ exports.retrieve = async (req, res) => {
 
   if (req.query.status !== undefined) {
     where.status = +req.query.status;
+  } else {
+    where.status = { [Op.not]: USER_STATUS_REMOVED };
   }
 
   if (search_criterion) {
@@ -92,7 +95,7 @@ exports.update = async (req, res) => {
 exports.delete = async (req, res) => {
   const user_id = +req.params.user_id;
   await getUserById(user_id);
-  await User.destroy({ where: { id: user_id } });
+  await User.update({ status: USER_STATUS_REMOVED }, { where: { id: user_id } });
   saveEventLog(req, false, 'user delete successfully');
   res.status(204).send();
 };
