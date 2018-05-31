@@ -5,7 +5,6 @@ import dialog from './dialog';
 import user from './user';
 import selectedEventLogId from './selectedEventLogId';
 import leftMenu from './leftMenu';
-import title from './title';
 
 const ui = combineReducers({
   notification,
@@ -14,7 +13,6 @@ const ui = combineReducers({
   user,
   leftMenu,
   selectedEventLogId,
-  title,
 });
 
 export default ui;
