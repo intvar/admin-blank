@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Router } from 'react-router';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Router, Route, Switch, Redirect } from 'react-router-dom';
 import LinearProgress from 'material-ui/LinearProgress';
 import Menu from '../menu';
 import Header from '../header';
