@@ -4,11 +4,15 @@ import axios from 'axios';
 import urlJoin from 'url-join';
 import { createSelector } from 'reselect';
 import { API_URL } from '../../../core/constants';
+import { appName } from '../../../config';
 
-export const LOAD = 'event_codes/LOAD';
-export const LOAD_START = 'event_codes/LOAD_START';
-export const LOAD_FINISH = 'event_codes/LOAD_FINISH';
-export const LOAD_ERROR = 'event_codes/LOAD_ERROR';
+export const moduleName = 'event_codes';
+const prefix = `${appName}/${moduleName}`;
+
+export const LOAD = `${prefix}/LOAD`;
+export const LOAD_START = `${prefix}/LOAD_START`;
+export const LOAD_FINISH = `${prefix}/LOAD_FINISH`;
+export const LOAD_ERROR = `${prefix}/LOAD_ERROR`;
 
 export const initialState = Map({
   isLoading: false,

@@ -8,6 +8,10 @@ import { createSelector } from 'reselect';
 import { API_URL } from '../../../core/constants';
 import { openNotification } from '../../ui/notification';
 import history from '../../../core/utils';
+import { appName } from '../../../config';
+
+export const moduleName = 'users';
+const prefix = `${appName}/${moduleName}`;
 
 const limit = 20;
 
@@ -18,18 +22,18 @@ export const initialState = Map({
   isLoading: false,
 });
 
-export const RETRIEVE_LIST = '/users/RETRIEVE_LIST';
-export const RETRIEVE_ONE = '/users/RETRIEVE_ONE';
-export const UPDATE = '/users/UPDATE';
-export const DELETE = '/users/DELETE';
-export const RELOAD = '/users/RELOAD';
-export const START = '/users/START';
-export const RETRIEVE_LIST_SUCCESS = '/users/RETRIEVE_LIST_SUCCESS';
-export const RETRIEVE_ONE_SUCCESS = '/users/RETRIEVE_ONE_SUCCESS';
-export const UPDATE_SUCCESS = '/users/UPDATE_SUCCESS';
-export const DELETE_SUCCESS = '/users/DELETE_SUCCESS';
-export const ERROR = '/users/ERROR';
-export const RESET = '/users/RESET';
+export const RETRIEVE_LIST = `${prefix}/RETRIEVE_LIST`;
+export const RETRIEVE_ONE = `${prefix}/RETRIEVE_ONE`;
+export const UPDATE = `${prefix}/UPDATE`;
+export const DELETE = `${prefix}/DELETE`;
+export const RELOAD = `${prefix}/RELOAD`;
+export const START = `${prefix}/START`;
+export const RETRIEVE_LIST_SUCCESS = `${prefix}/RETRIEVE_LIST_SUCCESS`;
+export const RETRIEVE_ONE_SUCCESS = `${prefix}/RETRIEVE_ONE_SUCCESS`;
+export const UPDATE_SUCCESS = `${prefix}/UPDATE_SUCCESS`;
+export const DELETE_SUCCESS = `${prefix}/DELETE_SUCCESS`;
+export const ERROR = `${prefix}/ERROR`;
+export const RESET = `${prefix}/RESET`;
 
 export default (
   state = initialState,
@@ -69,15 +73,15 @@ export default (
   }
 };
 
-export const usersSelector = createSelector(state => state.data.users, users => users);
+export const usersSelector = state => state.data[moduleName];
 
 export const getPageNumber = createSelector(
-  state => state.data.users,
+  state => state.data[moduleName],
   users => users.get('pageNumber'),
 );
 
 export const getList = createSelector(
-  state => state.data.users,
+  state => state.data[moduleName],
   users => users.get('list'),
 );
 

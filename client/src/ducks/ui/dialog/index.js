@@ -3,10 +3,14 @@ import React from 'react';
 import { put, call, takeLatest } from 'redux-saga/effects';
 import { createSelector } from 'reselect';
 import buttonCreater from './buttonCreater';
+import { appName } from '../../../config';
 
-export const SHOW = 'dialog/SHOW';
-export const HIDE = 'dialog/HIDE';
-export const ASK_QUESTION = 'dialog/ASK_QUESTION';
+export const moduleName = 'dialog';
+const prefix = `${appName}/${moduleName}`;
+
+export const SHOW = `${prefix}/SHOW`;
+export const HIDE = `${prefix}/HIDE`;
+export const ASK_QUESTION = `${prefix}/ASK_QUESTION`;
 
 const initialState = Map({
   dialogProperties: null,
@@ -35,7 +39,7 @@ export default function dialog(state = initialState, {
 }
 
 export const dialogSelector = createSelector(
-  state => state.ui.dialog,
+  state => state.ui[moduleName],
   immutableMap => immutableMap.toJS(),
 );
 

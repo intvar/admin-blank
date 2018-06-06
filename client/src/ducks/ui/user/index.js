@@ -7,18 +7,22 @@ import history from '../../../core/utils';
 import { API_URL } from '../../../core/constants';
 import { openNotification } from '../notification';
 import { showInfo } from '../dialog';
+import { appName } from '../../../config';
 
-export const SIGN_IN = 'auth/SIGN_IN';
-export const SIGN_OUT = 'auth/SIGN_OUT';
-export const FORGOT_PASSWORD = 'auth/FORGOT_PASSWORD';
-export const RECOVERY_PASSWORD = 'auth/RECOVERY_PASSWORD';
-export const CHANGE_PASSWORD = 'auth/CHANGE_PASSWORD';
-export const START = 'user/START';
-export const SIGN_IN_SUCCESS = 'user/SIGN_IN_SUCCESS';
-export const SIGN_OUT_SUCCESS = 'user/SIGN_OUT_SUCCESS';
-export const PASSWORD_RESTORED = 'user/PASSWORD_RESTORED';
-export const FINISH = 'user/FINISH';
-export const ERROR = 'user/ERROR';
+export const moduleName = 'user';
+const prefix = `${appName}/${moduleName}`;
+
+export const SIGN_IN = `${prefix}/SIGN_IN`;
+export const SIGN_OUT = `${prefix}/SIGN_OUT`;
+export const FORGOT_PASSWORD = `${prefix}/FORGOT_PASSWORD`;
+export const RECOVERY_PASSWORD = `${prefix}/RECOVERY_PASSWORD`;
+export const CHANGE_PASSWORD = `${prefix}/CHANGE_PASSWORD`;
+export const START = `${prefix}/START`;
+export const SIGN_IN_SUCCESS = `${prefix}/SIGN_IN_SUCCESS`;
+export const SIGN_OUT_SUCCESS = `${prefix}/SIGN_OUT_SUCCESS`;
+export const PASSWORD_RESTORED = `${prefix}/PASSWORD_RESTORED`;
+export const FINISH = `${prefix}/FINISH`;
+export const ERROR = `${prefix}/ERROR`;
 
 const initialUserState = Map({
   personalData: {
@@ -56,7 +60,7 @@ export default function user(state = initialUserState, action) {
   }
 }
 
-export const userSelector = createSelector(state => state.ui.user, u => u.toJS());
+export const userSelector = createSelector(state => state.ui[moduleName], u => u.toJS());
 
 export function* signIn({ email, password }) {
   const url = urlJoin(API_URL, '/actions/login');

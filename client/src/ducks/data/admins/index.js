@@ -7,8 +7,11 @@ import { stringify } from 'qs';
 import { createSelector } from 'reselect';
 import { API_URL } from '../../../core/constants';
 import { openNotification } from '../../ui/notification';
+import { appName } from '../../../config';
 
 const limit = 20;
+
+export const moduleName = 'admins';
 
 export const initialState = Map({
   list: Map(),
@@ -17,20 +20,22 @@ export const initialState = Map({
   isLoading: false,
 });
 
-export const START = 'admins/START';
-export const CREATE = 'admins/CREATE';
-export const CREATE_SUCCESS = 'admins/CREATE_SUCCESS';
-export const RETRIEVE_LIST = 'admins/RETRIEVE_LIST';
-export const RETRIEVE_LIST_SUCCESS = 'admins/RETRIEVE_LIST_SUCCESS';
-export const RETRIEVE_ONE = 'admins/RETRIEVE_ONE';
-export const RETRIEVE_ONE_SUCCESS = 'admins/RETRIEVE_ONE_SUCCESS';
-export const UPDATE = 'admins/UPDATE';
-export const UPDATE_SUCCESS = 'admins/UPDATE_SUCCESS';
-export const DELETE = 'admins/DELETE';
-export const DELETE_SUCCESS = 'admins/DELETE_SUCCESS';
-export const ERROR = 'admins/ERROR';
-export const RESET = 'admins/RESET';
-export const RELOAD = 'admins/RELOAD';
+const prefix = `${appName}/${moduleName}`;
+
+export const START = `${prefix}/START`;
+export const CREATE = `${prefix}/CREATE`;
+export const CREATE_SUCCESS = `${prefix}/CREATE_SUCCESS`;
+export const RETRIEVE_LIST = `${prefix}/RETRIEVE_LIST`;
+export const RETRIEVE_LIST_SUCCESS = `${prefix}/RETRIEVE_LIST_SUCCESS`;
+export const RETRIEVE_ONE = `${prefix}/RETRIEVE_ONE`;
+export const RETRIEVE_ONE_SUCCESS = `${prefix}/RETRIEVE_ONE_SUCCESS`;
+export const UPDATE = `${prefix}/UPDATE`;
+export const UPDATE_SUCCESS = `${prefix}/UPDATE_SUCCESS`;
+export const DELETE = `${prefix}/DELETE`;
+export const DELETE_SUCCESS = `${prefix}/DELETE_SUCCESS`;
+export const ERROR = `${prefix}/ERROR`;
+export const RESET = `${prefix}/RESET`;
+export const RELOAD = `${prefix}/RELOAD`;
 
 export default (
   state = initialState,

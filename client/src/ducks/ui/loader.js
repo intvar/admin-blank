@@ -1,8 +1,12 @@
 import { Map } from 'immutable';
 import { createSelector } from 'reselect';
+import { appName } from '../../config';
 
-export const LOAD_START = 'loader/LOAD_START';
-export const LOAD_END = 'loader/LOAD_END';
+export const moduleName = 'loader';
+const prefix = `${appName}/${moduleName}`;
+
+export const LOAD_START = `${prefix}/LOAD_START`;
+export const LOAD_END = `${prefix}/LOAD_END`;
 
 export default (state = Map({ isLoading: false }), action) => {
   switch (action.type) {
@@ -28,6 +32,6 @@ export function loadEnd() {
 }
 
 export const loaderSelector = createSelector(
-  state => state.ui.loader,
+  state => state.ui[moduleName],
   loader => loader.get('isLoading'),
 );

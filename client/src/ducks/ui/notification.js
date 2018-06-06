@@ -1,10 +1,14 @@
 import { Map } from 'immutable';
 import { delay } from 'redux-saga';
 import { put, call, takeEvery } from 'redux-saga/effects';
+import { appName } from '../../config';
 
-export const OPEN_NOTIFICATION = 'notification/OPEN_NOTIFICATION';
-export const OPEN = 'notification/OPEN';
-export const HIDE = 'notification/HIDE';
+export const moduleName = 'notification';
+const prefix = `${appName}/${moduleName}`;
+
+export const OPEN_NOTIFICATION = `${prefix}/OPEN_NOTIFICATION`;
+export const OPEN = `${prefix}/OPEN`;
+export const HIDE = `${prefix}/HIDE`;
 
 const initialState = Map({
   message: '',

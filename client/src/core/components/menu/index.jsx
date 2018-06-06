@@ -13,6 +13,7 @@ import Divider from 'material-ui/Divider';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { SIGN_OUT } from '../../../ducks/ui/user';
+import { getLeftMenu } from '../../../ducks/ui/leftMenu';
 
 
 import './style.scss';
@@ -56,7 +57,7 @@ HeadMenu.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  isShow: state.ui.leftMenu,
+  isShow: getLeftMenu(state),
 });
 
 const mapDispatchToProps = {

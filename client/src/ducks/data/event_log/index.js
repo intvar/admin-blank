@@ -10,13 +10,17 @@ import { API_URL } from '../../../core/constants';
 import { openNotification } from '../../ui/notification';
 import { showComponent } from '../../ui/dialog';
 import DebugInfoViewer from '../../../event_logs/components/debug_info_viewer';
+import { appName } from '../../../config';
+
+export const moduleName = 'event_log';
+const prefix = `${appName}/${moduleName}`;
 
 const limit = 40;
-export const LOAD_START = '/event_log/LOAD_START';
-export const LOAD_SUCCESS = '/event_log/LOAD_SUCCEESS';
-export const LOAD_DEBUG_INFO_SUCCESS = '/event_log/LOAD_DEBUG_INFO_SUCCESS';
-export const LOAD_ERROR = '/event_log/LOAD_ERROR';
-export const RESET = '/event_log/RESET';
+export const LOAD_START = `${prefix}/LOAD_START`;
+export const LOAD_SUCCESS = `${prefix}/LOAD_SUCCEESS`;
+export const LOAD_DEBUG_INFO_SUCCESS = `${prefix}/LOAD_DEBUG_INFO_SUCCESS`;
+export const LOAD_ERROR = `${prefix}/LOAD_ERROR`;
+export const RESET = `${prefix}/RESET`;
 
 export const initialState = Map({
   list: OrderedMap(),
@@ -59,13 +63,10 @@ export const LOAD = '/event_log/LOAD';
 export const RELOAD = '/event_log/RELOAD';
 export const SHOW_DEBUG_INFO = '/event_log/SHOW_DEBUG_INFO';
 
-export const getEventLogs = createSelector(
-  state => state.data.event_log,
-  event_log => event_log,
-);
+export const getEventLogs = state => state.data[moduleName];
 
 export const getPageNumber = createSelector(
-  state => state.data.event_log,
+  state => state.data[moduleName],
   event_log => event_log.get('pageNumber'),
 );
 
@@ -76,7 +77,7 @@ export const getFilters = createSelector(
 
 export const getSelectedEventLog = createSelector(
   [
-    state => state.data.event_log,
+    state => state.data[moduleName],
     state => state.ui.selectedEventLogId,
   ],
   (eventLog, eventLogId) => eventLog.getIn(['list', String(eventLogId)]),

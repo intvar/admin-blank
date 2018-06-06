@@ -1,14 +1,14 @@
 import { combineReducers } from 'redux';
-import event_log from './event_log';
-import event_codes from './event_codes';
-import users from './users';
-import admins from './admins';
+import event_log, { moduleName as eventLogModule } from './event_log';
+import event_codes, { moduleName as eventCodesModule } from './event_codes';
+import users, { moduleName as eventUsersModule } from './users';
+import admins, { moduleName as adminsModule } from './admins';
 
 const data = combineReducers({
-  event_log,
-  users,
-  admins,
-  event_codes,
+  [eventLogModule]: event_log,
+  [eventCodesModule]: event_codes,
+  [eventUsersModule]: users,
+  [adminsModule]: admins,
 });
 export default data;
 
