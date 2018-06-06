@@ -1,9 +1,8 @@
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import Filters from './filters';
-import eventCodesSelector from '../../../store/selectors/eventCodesSelector';
-import { LOAD } from '../../../store/sagas/event_codes';
-import { RELOAD } from '../../../store/sagas/event_log';
+import { LOAD, eventCodesSelector } from '../../../ducks/data/event_codes';
+import { RELOAD } from '../../../ducks/data/event_log';
 
 const mapStateToProps = state => ({
   eventCodes: eventCodesSelector(state),

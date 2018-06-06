@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import DebugInfoViewer from './debug_info_viewer';
-import getEventLogs, { getSelectedEventLog } from '../../../store/selectors/eventLogSelector';
+import { getEventLogs, getSelectedEventLog } from '../../../ducks/data/event_log';
 
 const mapStateToProps = (state) => {
   const isLoading = getEventLogs(state).get('isLoading');

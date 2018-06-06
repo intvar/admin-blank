@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import UsersFiltersForm from './usersFiltersForm';
-import { RELOAD } from '../../../../../store/sagas/users';
+import { RELOAD } from '../../../../../ducks/data/users';
 
 const mapDispatchToProps = {
   onChange: () => ({ type: RELOAD }),

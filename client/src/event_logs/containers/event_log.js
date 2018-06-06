@@ -1,10 +1,9 @@
 import { connect } from 'react-redux';
 import EventLog from '../components/event_log';
-import { LOAD } from '../../store/sagas/event_log';
-import eventLogSelector from '../../store/selectors/eventLogSelector';
+import { LOAD, getEventLogs } from '../../ducks/data/event_log';
 
 const mapStateToProps = (state) => {
-  const eventLog = eventLogSelector(state);
+  const eventLog = getEventLogs(state);
   return {
     list: eventLog.get('list').toList().toJS(),
     hasMore: eventLog.get('hasMore'),

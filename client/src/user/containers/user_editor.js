@@ -2,8 +2,7 @@ import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import pick from 'lodash/pick';
 import UserEditor from '../components/user_editor';
-import { RETRIEVE_ONE, UPDATE } from '../../store/sagas/users';
-import getUsers from '../../store/selectors/usersSelector';
+import { RETRIEVE_ONE, UPDATE, usersSelector } from '../../ducks/data/users';
 
 const validate = ({ first_name, last_name }) => {
   const errors = {};
@@ -24,7 +23,7 @@ const validate = ({ first_name, last_name }) => {
 
 const mapStateToProps = (state, props) => {
   const userId = props.match.params.id;
-  const users = getUsers(state);
+  const users = usersSelector(state);
   const userMap = users.getIn(['list', userId]);
   return {
     isLoading: users.get('isLoading'),

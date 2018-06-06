@@ -2,8 +2,7 @@ import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import { isEmail } from 'validator';
 import SignInForm from './signInForm';
-import { SIGN_IN } from '../../store/sagas/auth';
-import userSelector from '../../store/selectors/userSelector';
+import { SIGN_IN, userSelector } from '../../ducks/ui/user';
 
 const validate = ({ email, password }) => {
   const errors = {};

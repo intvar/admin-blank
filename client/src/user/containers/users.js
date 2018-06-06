@@ -1,8 +1,7 @@
 import { connect } from 'react-redux';
 import Users from '../components/users';
-import usersSelector from '../../store/selectors/usersSelector';
-import { RETRIEVE_LIST, DELETE } from '../../store/sagas/users';
-import { ASK_QUESTION } from '../../store/sagas/dialog';
+import { usersSelector, RETRIEVE_LIST, DELETE } from '../../ducks/data/users';
+import { ASK_QUESTION } from '../../ducks/ui/dialog';
 
 const mapStateToProps = (state) => {
   const users = usersSelector(state);

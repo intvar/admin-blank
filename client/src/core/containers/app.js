@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import App from '../components/app';
-import userSelector from '../../store/selectors/userSelector';
+import { userSelector } from '../../ducks/ui/user';
 
 const mapStateToProps = (state) => {
   const userData = userSelector(state);

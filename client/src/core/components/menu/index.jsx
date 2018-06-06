@@ -12,7 +12,7 @@ import ChangePassword from 'material-ui/svg-icons/communication/vpn-key';
 import Divider from 'material-ui/Divider';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { SIGN_OUT } from '../../../store/sagas/auth';
+import { SIGN_OUT } from '../../../ducks/ui/user';
 
 
 import './style.scss';

@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { store } from '../store';
-import { SIGN_OUT_SUCCESS } from '../store/ducks/ui/user';
+import { store } from '../redux';
+import { SIGN_OUT_SUCCESS } from '../ducks/ui/user';
 import history from './utils';
 
 /**

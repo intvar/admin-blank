@@ -2,8 +2,7 @@ import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import { isEmail } from 'validator';
 import FrogotPasswordForm from './forgotPasswordForm';
-import { FORGOT_PASSWORD } from '../../store/sagas/auth';
-import userSelector from '../../store/selectors/userSelector';
+import { FORGOT_PASSWORD, userSelector } from '../../ducks/ui/user';
 
 const validate = ({ email }) => {
   const errors = {};

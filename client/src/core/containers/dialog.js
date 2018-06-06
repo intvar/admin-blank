@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
-import dialogSelector from '../../store/selectors/dialogSelector';
+import { dialogSelector, HIDE } from '../../ducks/ui/dialog';
 import Dialog from '../components/dialog';
-import { HIDE } from '../../store/ducks/ui/dialog';
 
 const mapStateToProps = state => (dialogSelector(state));
 const mapDispatchToProps = {

@@ -123,7 +123,6 @@ export const parseQueryString = (str) => {
 export function pick(props, from) {
   return props
     /* eslint no-return-assign: 0 */
-    .reduce(
-      (acc, propName) => (Object.prototype.hasOwnProperty.call(from, propName) ?
-        (acc[propName] = from[propName], acc) : acc), {});
+    .reduce((acc, propName) => (Object.prototype.hasOwnProperty.call(from, propName) ?
+      (acc[propName] = from[propName], acc) : acc), {});
 }

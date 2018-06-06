@@ -1,8 +1,7 @@
 import { reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import RecoveryPasswordForm from './recoveryPasswordForm';
-import userSelector from '../../store/selectors/userSelector';
-import { RECOVERY_PASSWORD } from '../../store/sagas/auth';
+import { userSelector, RECOVERY_PASSWORD } from '../../ducks/ui/user';
 
 const validate = ({ password, confirm_password }) => {
   const errors = {};

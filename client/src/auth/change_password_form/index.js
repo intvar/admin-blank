@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import ChangePasswordForm from './changePasswordForm';
-import { CHANGE_PASSWORD } from '../../store/sagas/auth';
+import { CHANGE_PASSWORD } from '../../ducks/ui/user';
 
 const mapDispatchProps = {
   onSubmit: ({ new_password, old_password }) => ({

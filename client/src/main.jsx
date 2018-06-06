@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 // import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { PersistGate } from 'redux-persist/integration/react';
-import { store, persistor } from './store';
+import { store, persistor } from './redux';
 // import theme from './theme';
 import App from './core/containers/app';
 import './core/axios.settings';

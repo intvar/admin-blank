@@ -3,11 +3,10 @@ import { reduxForm } from 'redux-form';
 import pick from 'lodash/pick';
 import { isEmail } from 'validator';
 import AdminEditor from '../components/editor';
-import { RETRIEVE_ONE, UPDATE, CREATE } from '../../store/sagas/admins';
-import getAdmins from '../../store/selectors/adminsSelector';
+import { getAdmins, RETRIEVE_ONE, UPDATE, CREATE } from '../../ducks/data/admins';
 import { ADMIN_STATUS_WAITING_VERIFYING } from '../constants';
 import history from '../../core/utils';
-import { OPEN_NOTIFICATION } from '../../store/ducks/ui/notification';
+import { OPEN_NOTIFICATION } from '../../ducks/ui/notification';
 
 const validate = ({ first_name, last_name, email }) => {
   const errors = {};

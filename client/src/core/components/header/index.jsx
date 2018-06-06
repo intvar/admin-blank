@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import AppBar from 'material-ui/AppBar';
 import { connect } from 'react-redux';
 import { Route, withRouter } from 'react-router-dom';
-import { TOGGLE } from '../../../store/ducks/ui/leftMenu';
+import { TOGGLE } from '../../../ducks/ui/leftMenu';
 import routes from '../../routes';
 import './style.scss';
 

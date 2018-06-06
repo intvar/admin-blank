@@ -1,11 +1,10 @@
 import { connect } from 'react-redux';
 import Admins from '../components/list';
-import adminsSelector from '../../store/selectors/adminsSelector';
-import { RETRIEVE_LIST, DELETE, RELOAD } from '../../store/sagas/admins';
-import { ASK_QUESTION } from '../../store/sagas/dialog';
+import { RETRIEVE_LIST, DELETE, RELOAD, getAdmins } from '../../ducks/data/admins';
+import { ASK_QUESTION } from '../../ducks/ui/dialog';
 
 const mapStateToProps = (state) => {
-  const admins = adminsSelector(state);
+  const admins = getAdmins(state);
   return {
     admins: admins.get('list').toList().toJS(),
     hasMoreAdmins: admins.get('hasMore'),

@@ -70,14 +70,13 @@ export default class Admins extends React.Component {
         }
       </List>
     );
-
     return (
       <InfiniteScroll
         isLoading={isLoading}
         onLoadMore={onDataRequest}
         hasMore={hasMoreAdmins}
       >
-        {hasMoreAdmins || Admins.length ? renderAdmins() : <SearchNotFound />}
+        {hasMoreAdmins || admins.length ? renderAdmins() : <SearchNotFound />}
         <Link to="/admins/add"><ContentAddButton /></Link>
         { isLoading ? <ContentSpinner /> : null }
       </InfiniteScroll>

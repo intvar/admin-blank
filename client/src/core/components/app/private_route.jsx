@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router';
 import { connect } from 'react-redux';
-import userSelector from '../../../store/selectors/userSelector';
+import { userSelector } from '../../../ducks/ui/user';
 
 const PrivateRoute = ({ component: Component, isAuthenticated, ...rest }) => (
   <Route
