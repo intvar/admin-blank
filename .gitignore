@@ -58,3 +58,7 @@ typings/
 .env
 .DS_store
 package-lock.json
+
+# Code editors
+.idea
+.idea/
